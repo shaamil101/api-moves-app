@@ -9,8 +9,7 @@ const MoveSchema = new Schema({
   creator: String,
   questions: [{ prompt: String, answer: String }],
   users: [String],
-  moveKey: String,
-  location: {latitude: Number, longitude: Number},
+  location: { latitude: Number, longitude: Number },
   status: { type: String, enum: MoveStates, default: MoveStates.IN_PROGRESS },
 }, {
   toObject: { virtuals: true },
