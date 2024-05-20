@@ -8,17 +8,37 @@ TODO: short project description, some sample screenshots or mockups
 ## Architecture
 
 TODO:  descriptions of code organization and tools and libraries used
+Libraries:
+- mongoose
+- express
+- cors
+- path
+- morgan
+
+Code organization:
+src:
+      controllers:
+            create_controller.js
+            join_controller.js
+            result_controller.js
+      models:
+            create_model.js
+            join_model.js
+            result_model.js
+      routes.js
+      server.js
 
 ## Setup
 
-TODO: how to get the project dev environment up and running, npm install etc
+* build command:  `npm install && npm run build`
+* run command:  `npm run prod`
 
 ## Deployment
 
-TODO: how to deploy the project
+Deploy to render as a web service and set up to a MongoDB cluster
 
 ## Authors
 
-TODO: list of authors
+Jon Jafarnia, Harry Irwin, Cameron Keith, CJ Wheelan, Shaamil Karim
 
 ## Acknowledgments
