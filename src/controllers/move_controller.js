@@ -1,5 +1,5 @@
 import Move, { MoveStates } from '../models/move_model';
-import { submit } from './submission_controller';
+import submit from './submission_controller';
 
 export async function createMove(moveInitInfo) {
   const newMove = new Move();
@@ -33,11 +33,13 @@ export async function joinMove(moveId, userInfo) {
   return move.save();
 }
 
-export async function changeStatus(moveId, status) {
+export async function changeStatus(moveId, userId, status) {
   const move = await Move.findById(moveId);
 
   if (status in MoveStates) {
     move.status = status;
+  } else if (userId !== move.creator) {
+    throw new Error('Only the creator can change the status of the game');
   } else {
     throw new Error(`Invalid status. Must be ${MoveStates.CANCELLED}, ${MoveStates.IN_PROGRESS} or ${MoveStates.FINISHED}`);
   }
@@ -68,12 +70,14 @@ export async function submitAnswer(moveId, user, response, questionId) {
   }
 
   if (!move.users.includes(user)) {
-    throw new Error(`user (${user}) not in room`);
+    throw new Error(`user (${user}) not in move`);
   }
 
-  const newSubmission = await submit(moveId, user, questionId, response);
+  const submission = await submit(moveId, user, questionId, response);
+
+  // TODO later on add in logic to dynamically pick next id based off answer
 
   await move.save();
 
-  return newSubmission;
+  return submission;
 }
