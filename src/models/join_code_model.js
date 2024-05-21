@@ -9,6 +9,6 @@ export const JoinCodeSchema = new Schema({
   toJSON: { virtuals: true },
 });
 
-const JoinCodeModel = mongoose.model('Submission', JoinCodeSchema);
+const JoinCodeModel = mongoose.model('JoinCodeModel', JoinCodeSchema);
 
 export default JoinCodeModel;
