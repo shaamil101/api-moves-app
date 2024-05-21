@@ -1,6 +1,6 @@
 import Move, { MoveStates } from '../models/move_model';
 import submit from './submission_controller';
-import { createJoinCode, joinMoveByCode } from './join_code_controller'
+import { createJoinCode, joinMoveByCode } from './join_code_controller';
 
 export async function createMove(moveInitInfo) {
   const newMove = new Move();
@@ -17,19 +17,20 @@ export async function createMove(moveInitInfo) {
 
     while (codeExists) {
       joinCode = Math.floor(100000 + Math.random() * 900000);
+      // eslint-disable-next-line no-await-in-loop
       codeExists = await Move.findOne({ joinCode }); // Assuming Move.findOne returns a Promise
     }
 
     return joinCode;
   }
 
-  const savedMove = await newMove.save();
+  const move = await newMove.save();
 
   const joinCode = await generateUniqueJoinCode();
 
-  createJoinCode({ joinCode, moveId: savedMove._id });
+  createJoinCode({ joinCode, moveId: move._id });
 
-  return savedMove;
+  return move;
 }
 
 export async function joinMove(joinCode, user) {
@@ -37,11 +38,11 @@ export async function joinMove(joinCode, user) {
   const move = await Move.findById(moveId);
 
   // make sure user's intended name does not already exist
-  const newuserName = user;
+  const userName = user;
   const existingusers = move.users;
 
-  if (existingusers.includes(newuserName)) {
-    throw new Error(`user with your intended name (${newuserName}) already exists`);
+  if (existingusers.includes(userName)) {
+    throw new Error(`user with your intended name (${userName}) already exists`);
   }
 
   if (move.status !== MoveStates.IN_PROGRESS) {
@@ -49,7 +50,7 @@ export async function joinMove(joinCode, user) {
   }
 
   // username is free; add user to room
-  move.users.push(newuserName);
+  move.users.push(userName);
   return move.save();
 }
 

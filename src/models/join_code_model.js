@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 
 export const JoinCodeSchema = new Schema({
-  code_id: String,
+  codeId: String,
   moveId: { type: Schema.Types.ObjectId, ref: 'Move' },
 }, {
   timestamps: true,
