@@ -1,6 +1,5 @@
 import JoinCodeModel from '../models/join_code_model';
 import Move from '../models/move_model';
-import { joinMove } from './move_controller';
 
 export async function createJoinCode(joinCodeInitInfo) {
   const newJoinCode = new JoinCodeModel();
@@ -9,10 +8,9 @@ export async function createJoinCode(joinCodeInitInfo) {
   return newJoinCode.save();
 }
 
-export async function joinMoveByCode(joinCode, userInfo) {
+export async function joinMoveByCode(joinCode) {
   const moveId = await JoinCodeModel.findOne({ code_id: joinCode }).moveId;
-  const useCodeToJoinMove = await joinMove(moveId, userInfo);
-  return useCodeToJoinMove.save();
+  return moveId;
 }
 
 export async function expireCode(joinCode) {

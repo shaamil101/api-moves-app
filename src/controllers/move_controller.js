@@ -1,5 +1,6 @@
 import Move, { MoveStates } from '../models/move_model';
 import submit from './submission_controller';
+import { createJoinCode, joinMoveByCode } from './join_code_controller'
 
 import Move from 'path-to-your-move-model'; // Adjust the import path accordingly
 import MoveStates from 'path-to-your-move-states'; // Adjust the import path accordingly
@@ -25,14 +26,18 @@ export async function createMove(moveInitInfo) {
     return joinCode;
   }
 
-  newMove.joinCode = await generateUniqueJoinCode();
-  console.log(newMove.joinCode);
+  const savedMove = await newMove.save();
 
-  return newMove.save();
+  const joinCode = await generateUniqueJoinCode();
+
+  createJoinCode({ joinCode, moveId: savedMove._id });
+
+  return savedMove;
 }
 
 export async function joinMove(joinCode, user) {
-  const move = await Move.findOne({joinCode});
+  const moveId = joinMoveByCode(joinCode);
+  const move = await Move.findById(moveId);
 
   // make sure user's intended name does not already exist
   const newuserName = user;
