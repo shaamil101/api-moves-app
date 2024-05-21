@@ -1,23 +1,46 @@
 import Move, { MoveStates } from '../models/move_model';
 import submit from './submission_controller';
+import { createJoinCode, joinMoveByCode } from './join_code_controller'
+
+import Move from 'path-to-your-move-model'; // Adjust the import path accordingly
+import MoveStates from 'path-to-your-move-states'; // Adjust the import path accordingly
 
 export async function createMove(moveInitInfo) {
   const newMove = new Move();
   newMove.creator = moveInitInfo.creator;
   newMove.responses = [];
-  newMove.questions = moveInitInfo.questions;
-  newMove.status = MoveStates.CLOSED;
+  newMove.questions = []; // moveInitInfo.questions;
+  newMove.status = MoveStates.IN_PROGRESS;
   newMove.location = moveInitInfo.location;
   newMove.radius = moveInitInfo.radius;
 
-  return newMove.save();
+  async function generateUniqueJoinCode() {
+    let joinCode;
+    let codeExists = true;
+
+    while (codeExists) {
+      joinCode = Math.floor(100000 + Math.random() * 900000);
+      codeExists = await Move.findOne({ joinCode }); // Assuming Move.findOne returns a Promise
+    }
+
+    return joinCode;
+  }
+
+  const savedMove = await newMove.save();
+
+  const joinCode = await generateUniqueJoinCode();
+
+  createJoinCode({ joinCode, moveId: savedMove._id });
+
+  return savedMove;
 }
 
-export async function joinMove(moveId, userInfo) {
+export async function joinMove(joinCode, user) {
+  const moveId = joinMoveByCode(joinCode);
   const move = await Move.findById(moveId);
 
   // make sure user's intended name does not already exist
-  const newuserName = userInfo.name;
+  const newuserName = user;
   const existingusers = move.users;
 
   if (existingusers.includes(newuserName)) {
