@@ -7,9 +7,11 @@ export const MoveStates = {
 };
 const MoveSchema = new Schema({
   creator: String,
+  joinCode: Number,
   questions: [{ prompt: String, answer: String }],
   users: [String],
   location: { latitude: Number, longitude: Number },
+  radius: Number,
   status: { type: String, enum: MoveStates, default: MoveStates.IN_PROGRESS },
 }, {
   toObject: { virtuals: true },
