@@ -2,9 +2,6 @@ import Move, { MoveStates } from '../models/move_model';
 import submit from './submission_controller';
 import { createJoinCode, joinMoveByCode } from './join_code_controller'
 
-import Move from 'path-to-your-move-model'; // Adjust the import path accordingly
-import MoveStates from 'path-to-your-move-states'; // Adjust the import path accordingly
-
 export async function createMove(moveInitInfo) {
   const newMove = new Move();
   newMove.creator = moveInitInfo.creator;
