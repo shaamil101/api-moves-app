@@ -115,11 +115,8 @@ export async function getQuestion(user, moveId) {
   if (!move.users.includes(user)) {
     throw new Error(`user (${user}) not in move`);
   }
-  const question = move.questionsByUser.find(entry => entry.user === user);
-  if (!question) {
-    throw new Error(`question not found`);
-  }
-  const questionId = question.questionId;
+  const questionId = 0; //move.questionsByUser.find(entry => entry.user === user).questionId;
+
   const prompt = 'Filler Prompt'; //questions.find(entry => entry.questionId === questionId).prompt;
   return {questionId: questionId, prompt: prompt };
 }
