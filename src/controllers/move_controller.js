@@ -49,6 +49,8 @@ export async function joinMove(joinCode, user) {
     throw new Error(`This room is not open for joining in state ${move.status}`);
   }
 
+  move.questionsByUser.push( { user: userName, questionId: 0} );
+
   // username is free; add user to room
   move.users.push(userName);
   return move.save();
@@ -101,4 +103,15 @@ export async function submitAnswer(moveId, user, response, questionId) {
   await move.save();
 
   return submission;
+}
+
+export async function getQuestion(user, moveId) {
+  console.log('ballsack');
+  const move = await Move.findById(moveId);
+  if (!move.users.includes(user)) {
+    throw new Error(`user (${user}) not in move`);
+  }
+  const questionId = questionsByUser.find(entry => entry.user === user).questionId;
+  const prompt = questions.find(entry => entry.questionId === questionId).prompt;
+  return {questionId: questionId, prompt: prompt };
 }
