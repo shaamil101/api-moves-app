@@ -10,7 +10,16 @@ router.get('/', (req, res) => {
 // your routes will go here
 const handleCreateMove = async (req, res) => {
   try {
-    const result = await Moves.createMove(req.body);
+    const result = await Moves.createMove(req.body.moveInitInfo);
+    res.json(result);
+  } catch (error) {
+    res.status(404).json({ error });
+  }
+};
+
+const handleSubmitResponse = async (req, res) => {
+  try {
+    const result = await Moves.submitAnswer(req.body.moveId, req.body.user, req.body.response, req.body.questionId);
     res.json(result);
   } catch (error) {
     res.status(404).json({ error });
@@ -28,7 +37,7 @@ const handleJoinMove = async (req, res) => {
 
 const handleGetQuestion = async (req, res) => {
   try {
-    const result = await Moves.getQuestion(req.body.user, req.body.moveId);
+    const result = await Moves.getQuestion(req.query.user, req.query.moveId);
     res.json(result);
   } catch (error) {
     res.status(404).json({ error });
@@ -36,7 +45,8 @@ const handleGetQuestion = async (req, res) => {
 };
 
 router.route('/question')
-  .get(handleGetQuestion);
+  .get(handleGetQuestion)
+  .post(handleSubmitResponse);
 
 router.route('/create')
   .post(handleCreateMove);

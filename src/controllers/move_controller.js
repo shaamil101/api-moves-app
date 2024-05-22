@@ -1,17 +1,17 @@
 import Move, { MoveStates } from '../models/move_model';
-import submit from './submission_controller';
+import Submission from '../models/submission_model';
+import submit from './submission_controller'
 import { createJoinCode, joinMoveByCode } from './join_code_controller';
 
 export async function createMove(moveInitInfo) {
   const newMove = new Move();
   newMove.creator = moveInitInfo.creator;
   newMove.responses = [];
-  newMove.questions = []; // moveInitInfo.questions;
+  newMove.questions = [{questionId: 0, prompt: 'first question', right: -1, left: -2}]; // moveInitInfo.questions;
   newMove.status = MoveStates.IN_PROGRESS;
   newMove.location = moveInitInfo.location;
   newMove.radius = moveInitInfo.radius;
-  newMove.users.push(moveInitInfo.creator);
-  newMove.questionsByUser.push( { user: moveInitInfo.creator, questionId: 0} );
+  newMove.users = [moveInitInfo.creator];
 
   async function generateUniqueJoinCode() {
     let joinCode;
@@ -28,6 +28,12 @@ export async function createMove(moveInitInfo) {
 
   const move = await newMove.save();
 
+  const sub = new Submission();
+  sub.questionId = 0;
+  sub.user = moveInitInfo.creator;
+  sub.moveId = move._id;
+  await sub.save();
+
   const joinCode = await generateUniqueJoinCode();
 
   createJoinCode({ joinCode, moveId: move._id });
@@ -38,6 +44,12 @@ export async function createMove(moveInitInfo) {
 export async function joinMove(joinCode, user) {
   const moveId = joinMoveByCode(joinCode);
   const move = await Move.findById(moveId);
+
+  const sub = new Submission();
+  sub.questionId = 0;
+  sub.user = user;
+  sub.moveId = moveId;
+  await sub.save();
 
   // make sure user's intended name does not already exist
   const userName = user;
@@ -50,8 +62,6 @@ export async function joinMove(joinCode, user) {
   if (move.status !== MoveStates.IN_PROGRESS) {
     throw new Error(`This room is not open for joining in state ${move.status}`);
   }
-
-  move.questionsByUser.push( { user: userName, questionId: 0} );
 
   // username is free; add user to room
   move.users.push(userName);
@@ -98,25 +108,34 @@ export async function submitAnswer(moveId, user, response, questionId) {
     throw new Error(`user (${user}) not in move`);
   }
 
-  const submission = await submit(moveId, user, questionId, response);
 
-  // TODO later on add in logic to dynamically pick next id based off answer
+  const submission = await Submission.findOne({moveId: moveId, user: user});
 
+  await submit(moveId, user, questionId, response);
+
+  // get next quiestion id
+  let nextQuestionId;
+  if (response) {
+    nextQuestionId = move.questions.find(q => q.questionId === questionId).right;
+  } else {
+    nextQuestionId = move.questions.find(q => q.questionId === questionId).left;
+  }
+
+  submission.questionId = nextQuestionId;
+  await submission.save();
+  
   await move.save();
 
-  return submission;
+  return move;
 }
 
 export async function getQuestion(user, moveId) {
-  const move = await Move.findById(moveId);
-  if (!move) {
+  const submission = await Submission.findOne({moveId: moveId, user: user});
+  console.log(submission);
+  if (!submission) {
     throw new Error(`Move with ID ${moveId} not found`);
   }
-  if (!move.users.includes(user)) {
-    throw new Error(`user (${user}) not in move`);
-  }
-  const questionId = 0; //move.questionsByUser.find(entry => entry.user === user).questionId;
-
+  const questionId = submission.questionId;
   const prompt = 'Filler Prompt'; //questions.find(entry => entry.questionId === questionId).prompt;
   return {questionId: questionId, prompt: prompt };
 }
