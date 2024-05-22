@@ -11,6 +11,8 @@ const MoveSchema = new Schema({
   questions: [{
     questionId: { type: Number },
     prompt: { type: String },
+    right: { type: Number },
+    left: { type: Number },
   }],
   questionsByUser: [{
     questionId: { type: Number },

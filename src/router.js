@@ -17,6 +17,15 @@ const handleCreateMove = async (req, res) => {
   }
 };
 
+const handleSubmitResponse = async (req, res) => {
+  try {
+    const result = await Moves.submitAnswer(req.body.moveId, req.body.user, req.body.response, req.body.questionId);
+    res.json(result);
+  } catch (error) {
+    res.status(404).json({ error });
+  }
+};
+
 const handleJoinMove = async (req, res) => {
   try {
     const result = await Moves.joinMove(req.params.code, req.body.user);
@@ -36,7 +45,8 @@ const handleGetQuestion = async (req, res) => {
 };
 
 router.route('/question')
-  .get(handleGetQuestion);
+  .get(handleGetQuestion)
+  .post(handleSubmitResponse);
 
 router.route('/create')
   .post(handleCreateMove);
