@@ -109,10 +109,17 @@ export async function submitAnswer(moveId, user, response, questionId) {
 
 export async function getQuestion(user, moveId) {
   const move = await Move.findById(moveId);
+  if (!move) {
+    throw new Error(`Move with ID ${moveId} not found`);
+  }
   if (!move.users.includes(user)) {
     throw new Error(`user (${user}) not in move`);
   }
-  const questionId = move.questionsByUser.find(entry => entry.user === user).questionId;
+  const question = move.questionsByUser.find(entry => entry.user === user);
+  if (!question) {
+    throw new Error(`question not found`);
+  }
+  const questionId = question.questionId;
   const prompt = 'Filler Prompt'; //questions.find(entry => entry.questionId === questionId).prompt;
   return {questionId: questionId, prompt: prompt };
 }
