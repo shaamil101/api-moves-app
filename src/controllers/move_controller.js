@@ -14,6 +14,7 @@ export async function createMove(moveInitInfo) {
   newMove.location = moveInitInfo.location;
   newMove.radius = moveInitInfo.radius;
   newMove.users = [moveInitInfo.creator];
+  newMove.moveName = moveInitInfo.moveName;
 
   async function generateUniqueJoinCode() {
     let joinCode;
@@ -93,6 +94,7 @@ export async function getState(moveId, user) {
     status: move.status,
     users: move.users,
     yourName: user,
+    moveName: move.moveName,
   };
 
   return state;

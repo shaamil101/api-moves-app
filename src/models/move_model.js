@@ -17,6 +17,7 @@ const MoveSchema = new Schema({
   location: { latitude: Number, longitude: Number },
   radius: Number,
   status: { type: String, enum: MoveStates, default: MoveStates.IN_PROGRESS },
+  moveName: String,
 }, {
   toObject: { virtuals: true },
   toJSON: { virtuals: true },
