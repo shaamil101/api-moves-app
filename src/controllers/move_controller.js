@@ -1,13 +1,15 @@
 import Move, { MoveStates } from '../models/move_model';
 import Submission from '../models/submission_model';
-import submit from './submission_controller'
+import submit from './submission_controller';
 import { createJoinCode, joinMoveByCode } from './join_code_controller';
 
 export async function createMove(moveInitInfo) {
   const newMove = new Move();
   newMove.creator = moveInitInfo.creator;
   newMove.responses = [];
-  newMove.questions = [{questionId: 0, prompt: 'first question', right: -1, left: -2}]; // moveInitInfo.questions;
+  newMove.questions = [{
+    questionId: 0, prompt: 'first question', right: -1, left: -2,
+  }]; // moveInitInfo.questions;
   newMove.status = MoveStates.IN_PROGRESS;
   newMove.location = moveInitInfo.location;
   newMove.radius = moveInitInfo.radius;
@@ -108,34 +110,33 @@ export async function submitAnswer(moveId, user, response, questionId) {
     throw new Error(`user (${user}) not in move`);
   }
 
-
-  const submission = await Submission.findOne({moveId: moveId, user: user});
+  const submission = await Submission.findOne({ moveId, user });
 
   await submit(moveId, user, questionId, response);
 
   // get next quiestion id
   let nextQuestionId;
   if (response) {
-    nextQuestionId = move.questions.find(q => q.questionId === questionId).right;
+    nextQuestionId = move.questions.find((q) => { return q.questionId === questionId; }).right;
   } else {
-    nextQuestionId = move.questions.find(q => q.questionId === questionId).left;
+    nextQuestionId = move.questions.find((q) => { return q.questionId === questionId; }).left;
   }
 
   submission.questionId = nextQuestionId;
   await submission.save();
-  
+
   await move.save();
 
   return move;
 }
 
 export async function getQuestion(user, moveId) {
-  const submission = await Submission.findOne({moveId: moveId, user: user});
+  const submission = await Submission.findOne({ moveId, user });
   console.log(submission);
   if (!submission) {
     throw new Error(`Move with ID ${moveId} not found`);
   }
-  const questionId = submission.questionId;
-  const prompt = 'Filler Prompt'; //questions.find(entry => entry.questionId === questionId).prompt;
-  return {questionId: questionId, prompt: prompt };
+  const { questionId } = submission;
+  const prompt = 'Filler Prompt'; // questions.find(entry => entry.questionId === questionId).prompt;
+  return { questionId, prompt };
 }

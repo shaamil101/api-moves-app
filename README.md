@@ -26,6 +26,59 @@ src:
       routes.js
       server.js
 
+## API Routes
+
+### GET /api/question
+Get request for a question.
+Send:
+- user
+- moveId
+
+Receive:
+- questionID
+- prompt
+
+### POST /api/question
+POST request to submit an answer to a question.
+Send:
+- user
+- moveId
+- response
+- questionID
+
+Receive:
+- creator
+- questions
+- users
+- location
+- radius
+- status
+(I think we should change the above to just be 200, no need to return entire move here)
+
+### POST /api/create
+Post request to create a new move. This function also initializes the responses, questions, status, users. This function also hits the joinCode table which matches shorter codes to the longer unique moveId's
+Send:
+- creator
+- location
+- radius
+
+Receive:
+- joinCode
+
+### POST api/create/:code
+This function allows users to join a move.
+Send:
+- joinCode
+- user
+
+Receive:
+- creator
+- questions
+- users
+- location
+- radius
+- status
+
 ## Setup
 
 * build command:  `npm install && npm run build`
