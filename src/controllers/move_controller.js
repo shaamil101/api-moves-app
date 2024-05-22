@@ -32,7 +32,7 @@ export async function createMove(moveInitInfo) {
 
   createJoinCode({ joinCode, moveId: move._id });
 
-  return joinCode;
+  return { joinCode, moveId: move._id };
 }
 
 export async function joinMove(joinCode, user) {
