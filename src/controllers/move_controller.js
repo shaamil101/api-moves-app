@@ -10,6 +10,8 @@ export async function createMove(moveInitInfo) {
   newMove.status = MoveStates.IN_PROGRESS;
   newMove.location = moveInitInfo.location;
   newMove.radius = moveInitInfo.radius;
+  newMove.users.push(moveInitInfo.creator);
+  move.questionsByUser.push( { user: moveInitInfo.creator, questionId: 0} );
 
   async function generateUniqueJoinCode() {
     let joinCode;
