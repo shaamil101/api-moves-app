@@ -12,7 +12,6 @@ export async function createMove(moveInitInfo) {
   newMove.location = moveInitInfo.location;
   newMove.radius = moveInitInfo.radius;
   newMove.users = [moveInitInfo.creator];
-  newMove.questionsByUser = [{user: moveInitInfo.creator, questionId: 0}];
 
   async function generateUniqueJoinCode() {
     let joinCode;
@@ -63,8 +62,6 @@ export async function joinMove(joinCode, user) {
   if (move.status !== MoveStates.IN_PROGRESS) {
     throw new Error(`This room is not open for joining in state ${move.status}`);
   }
-
-  move.questionsByUser.push( { user: userName, questionId: 0} );
 
   // username is free; add user to room
   move.users.push(userName);
@@ -133,7 +130,6 @@ export async function submitAnswer(moveId, user, response, questionId) {
 }
 
 export async function getQuestion(user, moveId) {
-  console.log('called');
   const submission = await Submission.findOne({moveId: moveId, user: user});
   console.log(submission);
   if (!submission) {

@@ -14,10 +14,6 @@ const MoveSchema = new Schema({
     right: { type: Number },
     left: { type: Number },
   }],
-  questionsByUser: [{
-    questionId: { type: Number },
-    user: { type: String },
-  }],
   users: [String],
   location: { latitude: Number, longitude: Number },
   radius: Number,
