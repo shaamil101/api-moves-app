@@ -8,8 +8,14 @@ export const MoveStates = {
 const MoveSchema = new Schema({
   creator: String,
   joinCode: Number,
-  questions: { questionId: Number, prompt: String },
-  questionsByUser: [{ user: String, questionId: Number }],
+  questions: [{
+    questionId: { type: Number },
+    prompt: { type: String },
+  }],
+  questionsByUser: [{
+    questionId: { type: Number },
+    user: { type: String },
+  }],
   users: [String],
   location: { latitude: Number, longitude: Number },
   radius: Number,

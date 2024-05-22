@@ -10,8 +10,8 @@ export async function createMove(moveInitInfo) {
   newMove.status = MoveStates.IN_PROGRESS;
   newMove.location = moveInitInfo.location;
   newMove.radius = moveInitInfo.radius;
-  newMove.users.push(moveInitInfo.creator);
-  newMove.questionsByUser.push( { user: moveInitInfo.creator, questionId: 0} );
+  newMove.users = [moveInitInfo.creator];
+  newMove.questionsByUser = [{user: moveInitInfo.creator, questionId: 0}];
 
   async function generateUniqueJoinCode() {
     let joinCode;
@@ -115,7 +115,7 @@ export async function getQuestion(user, moveId) {
   if (!move.users.includes(user)) {
     throw new Error(`user (${user}) not in move`);
   }
-  const questionId = 0; //move.questionsByUser.find(entry => entry.user === user).questionId;
+  const questionId = move.questionsByUser.find(entry => entry.user === user).questionId;
 
   const prompt = 'Filler Prompt'; //questions.find(entry => entry.questionId === questionId).prompt;
   return {questionId: questionId, prompt: prompt };
