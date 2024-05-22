@@ -28,7 +28,7 @@ const handleJoinMove = async (req, res) => {
 
 const handleGetQuestion = async (req, res) => {
   try {
-    const result = await Moves.getQuestion(req.params.user, req.params.moveId);
+    const result = await Moves.getQuestion(req.body.user, req.body.moveId);
     res.json(result);
   } catch (error) {
     res.status(404).json({ error });
