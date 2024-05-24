@@ -36,16 +36,15 @@ export async function createMove(moveInitInfo) {
   sub.user = moveInitInfo.creator;
   sub.moveId = move._id;
   await sub.save();
-
   const joinCode = await generateUniqueJoinCode();
 
-  createJoinCode({ joinCode, moveId: move._id });
+  await createJoinCode({ joinCode, moveId: move._id });
 
   return { joinCode, moveId: move._id };
 }
 
 export async function joinMove(joinCode, user) {
-  const moveId = joinMoveByCode(joinCode);
+  const moveId = await joinMoveByCode(joinCode);
   const move = await Move.findById(moveId);
 
   const sub = new Submission();
@@ -82,7 +81,9 @@ export async function changeStatus(moveId, userId, status) {
     throw new Error(`Invalid status. Must be ${MoveStates.CANCELLED}, ${MoveStates.IN_PROGRESS} or ${MoveStates.FINISHED}`);
   }
 
-  return move.save();
+  const res = await move.save();
+
+  return res;
 }
 
 // returns the main game state with current question, rank, game status, and scoreboard
@@ -129,12 +130,11 @@ export async function submitAnswer(moveId, user, response, questionId) {
 
   await move.save();
 
-  return move;
+  return { moveId, user, questionId: nextQuestionId };
 }
 
 export async function getQuestion(user, moveId) {
   const submission = await Submission.findOne({ moveId, user });
-  console.log(submission);
   if (!submission) {
     throw new Error(`Move with ID ${moveId} not found`);
   }
