@@ -2,15 +2,17 @@ import JoinCodeModel from '../models/join_code_model';
 import Move from '../models/move_model';
 
 export async function createJoinCode(joinCodeInitInfo) {
-  const newJoinCode = new JoinCodeModel();
-  newJoinCode.moveId = joinCodeInitInfo.moveId;
-
-  return newJoinCode.save();
+  const newJoinCode = new JoinCodeModel({
+    moveId: joinCodeInitInfo.moveId,
+    codeId: joinCodeInitInfo.joinCode,
+  });
+  const res = await newJoinCode.save();
+  return res;
 }
 
 export async function joinMoveByCode(joinCode) {
-  const moveId = await JoinCodeModel.findOne({ codeId: joinCode }).moveId;
-  return moveId;
+  const joinCodeObj = await JoinCodeModel.findOne({ codeId: Number(joinCode) });
+  return joinCodeObj.moveId;
 }
 
 export async function expireCode(joinCode) {

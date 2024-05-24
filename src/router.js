@@ -28,7 +28,7 @@ const handleSubmitResponse = async (req, res) => {
 
 const handleJoinMove = async (req, res) => {
   try {
-    const result = await Moves.joinMove(req.params.code, req.body.user);
+    const result = await Moves.joinMove(req.body.code, req.body.user);
     res.json(result);
   } catch (error) {
     res.status(404).json({ error });
@@ -60,7 +60,7 @@ router.route('/question')
 router.route('/create')
   .post(handleCreateMove);
 
-router.route('/create/:code')
+router.route('/join')
   .post(handleJoinMove);
 
 router.route('/move/status')
