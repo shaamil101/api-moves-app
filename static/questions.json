@@ -1,6 +1,6 @@
 {
       "1" : {
-        "fontendPrompt": "Are you hungry?",
+        "prompt": "Are you hungry?",
         "yesId": 2,
         "noId": 3,
         "gif": "someUrl",
@@ -8,7 +8,7 @@
         "type": "plan"
       },
       "2" : {
-        "fontendPrompt": "Want something spicy?",
+        "prompt": "Want something spicy?",
         "yesId": 4,
         "noId": 4,
         "gif": "someUrl",
@@ -16,7 +16,7 @@
         "type": "preference"
       },
       "3" : {
-        "fontendPrompt": "Do you want a sweet treat?",
+        "prompt": "Do you want a sweet treat?",
         "yesId": 5,
         "noId": 5,
         "gif": "someUrl",
@@ -24,7 +24,7 @@
         "type": "plan"
       },
       "4" : {
-        "fontendPrompt": "Do you want to spend $$?",
+        "prompt": "Do you want to spend $$?",
         "yesId": 3,
         "noId": 3,
         "gif": "someUrl",
@@ -32,7 +32,7 @@
         "type": "preference"
       },
       "5": {
-        "fontendPrompt": "Are you feeling thirsty?",
+        "prompt": "Are you feeling thirsty?",
         "yesId": 6,
         "noId": 6,
         "gif": "someUrl",
@@ -40,7 +40,7 @@
         "type": "plan"
       },
       "6": {
-        "fontendPrompt": "Are you feeling groovy?",
+        "prompt": "Are you feeling groovy?",
         "yesId": 7,
         "noId": 7,
         "gif": "someUrl",
@@ -48,7 +48,9 @@
         "type": "plan"
       },
       "7" : {
-        "fontendPrompt": "Do you have any other thoughts?",
+        "prompt": "Do you have any other thoughts?",
+        "yesId": -1,
+        "noId": -1,
         "type": "preference"
       }
 }

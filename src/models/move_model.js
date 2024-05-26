@@ -10,8 +10,11 @@ const MoveSchema = new Schema({
   questions: [{
     questionId: { type: Number },
     prompt: { type: String },
-    right: { type: Number },
-    left: { type: Number },
+    backendPrompt: { type: String },
+    gif: { type: String },
+    type: { type: String },
+    yesId: { type: Number },
+    noId: { type: Number },
   }],
   users: [String],
   location: { latitude: Number, longitude: Number },

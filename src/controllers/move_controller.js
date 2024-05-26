@@ -2,14 +2,24 @@ import Move, { MoveStates } from '../models/move_model';
 import Submission from '../models/submission_model';
 import submit from './submission_controller';
 import { createJoinCode, joinMoveByCode } from './join_code_controller';
+import data from '../../static/questions.json';
 
 export async function createMove(moveInitInfo) {
   const newMove = new Move();
   newMove.creator = moveInitInfo.creator;
   newMove.responses = [];
-  newMove.questions = [{
-    questionId: 0, prompt: 'first question', right: -1, left: -2,
-  }]; // moveInitInfo.questions;
+  const questions = Object.keys(data).map((key) => {
+    return {
+      questionId: parseInt(key, 10),
+      prompt: data[key].prompt,
+      backendPrompt: data[key].backendPrompt,
+      gif: data[key].gif,
+      type: data[key].type,
+      yesId: data[key].yesId,
+      noId: data[key].noId,
+    };
+  });
+  newMove.questions = questions;
   newMove.status = MoveStates.IN_PROGRESS;
   newMove.location = moveInitInfo.location;
   newMove.radius = moveInitInfo.radius;
@@ -32,7 +42,7 @@ export async function createMove(moveInitInfo) {
   const move = await newMove.save();
 
   const sub = new Submission();
-  sub.questionId = 0;
+  sub.questionId = 1;
   sub.user = moveInitInfo.creator;
   sub.moveId = move._id;
   await sub.save();
@@ -48,7 +58,7 @@ export async function joinMove(joinCode, user) {
   const move = await Move.findById(moveId);
 
   const sub = new Submission();
-  sub.questionId = 0;
+  sub.questionId = 1;
   sub.user = user;
   sub.moveId = moveId;
   await sub.save();
@@ -120,9 +130,9 @@ export async function submitAnswer(moveId, user, response, questionId) {
   // get next quiestion id
   let nextQuestionId;
   if (response) {
-    nextQuestionId = move.questions.find((q) => { return q.questionId === questionId; }).right;
+    nextQuestionId = move.questions.find((q) => { return q.questionId === questionId; }).yesId;
   } else {
-    nextQuestionId = move.questions.find((q) => { return q.questionId === questionId; }).left;
+    nextQuestionId = move.questions.find((q) => { return q.questionId === questionId; }).noId;
   }
 
   submission.questionId = nextQuestionId;
@@ -134,11 +144,15 @@ export async function submitAnswer(moveId, user, response, questionId) {
 }
 
 export async function getQuestion(user, moveId) {
+  const move = await Move.findById(moveId);
   const submission = await Submission.findOne({ moveId, user });
   if (!submission) {
     throw new Error(`Move with ID ${moveId} not found`);
   }
   const { questionId } = submission;
-  const prompt = 'Filler Prompt'; // questions.find(entry => entry.questionId === questionId).prompt;
-  return { questionId, prompt };
+  const questionData = move.questions.find((entry) => { return entry.questionId === questionId; });
+  if (!questionData) {
+    return { questionId, prompt: '' };
+  }
+  return { questionId, prompt: questionData.prompt };
 }
