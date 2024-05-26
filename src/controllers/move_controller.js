@@ -96,7 +96,7 @@ export async function changeStatus(moveId, userId, status) {
   return res;
 }
 
-// returns the main game state with current question, rank, game status, and scoreboard
+// returns the main state with status, users, username, and move name
 export async function getState(moveId, user) {
   const move = await Move.findById(moveId);
 
@@ -127,7 +127,7 @@ export async function submitAnswer(moveId, user, response, questionId) {
 
   await submit(moveId, user, questionId, response);
 
-  // get next quiestion id
+  // get next question id
   let nextQuestionId;
   if (response) {
     nextQuestionId = move.questions.find((q) => { return q.questionId === questionId; }).yesId;

@@ -46,7 +46,7 @@ const handleGetQuestion = async (req, res) => {
 
 const handleGetMoveState = async (req, res) => {
   try {
-    const result = await Moves.getState(req.query.moveId);
+    const result = await Moves.getState(req.query.moveId, req.query.user);
     res.json(result);
   } catch (error) {
     res.status(404).json({ error });
