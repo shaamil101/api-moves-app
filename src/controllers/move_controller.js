@@ -109,8 +109,6 @@ export async function getState(moveId, user) {
     moveName: move.moveName,
   };
 
-  console.log(state);
-
   return state;
 }
 
