@@ -78,7 +78,7 @@ router.post('/signup', async (req, res) => {
 });
 
 // Signout route
-router.post('/signout', requireAuth, async (req, res) => {
+router.post('/signout', async (req, res) => {
   await UserController.signout(req, res);
 });
 
