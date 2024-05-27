@@ -6,7 +6,7 @@ export default async function submit(moveId, user, questionId, response) {
     moveId, user,
   });
   if (!exisitingSubmission) {
-    const firstResponse = { questionId, response };
+    const firstResponse = { questionId, answer: response };
     const newSubmission = new Submission({
       moveId,
       user,
@@ -17,7 +17,7 @@ export default async function submit(moveId, user, questionId, response) {
     await newSubmission.save();
     return newSubmission;
   } else {
-    exisitingSubmission.responses.push({ questionId, response });
+    exisitingSubmission.responses.push({ questionId, answer: response });
     exisitingSubmission.questionId += 1;
     await exisitingSubmission.save();
     return exisitingSubmission;

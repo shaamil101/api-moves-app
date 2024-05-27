@@ -53,6 +53,11 @@ export async function createMove(moveInitInfo) {
   return { joinCode, moveId: move._id };
 }
 
+export async function getResults(moveId) {
+  const submissions = await Submission.find({ moveId });
+  return submissions;
+}
+
 export async function joinMove(joinCode, user) {
   const moveId = await joinMoveByCode(joinCode);
   const move = await Move.findById(moveId);
