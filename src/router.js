@@ -62,6 +62,18 @@ const handleChangeStatus = async (req, res) => {
   }
 };
 
+const handleGetResults = async (req, res) => {
+  try {
+    const result = await Moves.getResults(req.query.moveId);
+    res.json(result);
+  } catch (error) {
+    res.status(404).json({ error });
+  }
+};
+
+router.route('/results')
+  .get(handleGetResults);
+
 router.route('/question')
   .get(handleGetQuestion)
   .post(handleSubmitResponse);

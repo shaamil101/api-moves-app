@@ -53,6 +53,22 @@ export async function createMove(moveInitInfo) {
   return { joinCode, moveId: move._id };
 }
 
+export async function getResults(moveId) {
+  const move = await Move.findById(moveId).lean();
+  const submissions = await Submission.find({ moveId }).lean();
+  const { location } = move;
+  const results = [];
+  for (let i = 0; i < submissions.length; i += 1) {
+    for (let j = 0; j < submissions[i].responses.length; j += 1) {
+      const { questionId, answer } = submissions[i].responses[j];
+      const { backendPrompt } = move.questions.find((q) => { return q.questionId === parseInt(questionId, 10); });
+      results.push(`${backendPrompt}: ${answer}`);
+    }
+  }
+  console.log(results, location);
+  return null;
+}
+
 export async function joinMove(joinCode, user) {
   const moveId = await joinMoveByCode(joinCode);
   const move = await Move.findById(moveId);
