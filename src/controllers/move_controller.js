@@ -101,10 +101,11 @@ export async function getState(moveId, user) {
   const move = await Move.findById(moveId);
 
   const state = {
-    moveId,
+    id: moveId,
     status: move.status,
     users: move.users,
     yourName: user,
+    creator: move.creator,
     moveName: move.moveName,
   };
 

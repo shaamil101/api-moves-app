@@ -53,6 +53,15 @@ const handleGetMoveState = async (req, res) => {
   }
 };
 
+const handleChangeStatus = async (req, res) => {
+  try {
+    const result = await Moves.changeStatus(req.body.moveId, req.body.user, req.body.status);
+    res.json(result);
+  } catch (error) {
+    res.status(404).json({ error });
+  }
+};
+
 router.route('/question')
   .get(handleGetQuestion)
   .post(handleSubmitResponse);
@@ -64,6 +73,7 @@ router.route('/join')
   .post(handleJoinMove);
 
 router.route('/move/status')
-  .get(handleGetMoveState);
+  .get(handleGetMoveState)
+  .post(handleChangeStatus);
 
 export default router;
