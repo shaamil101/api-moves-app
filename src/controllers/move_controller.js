@@ -3,6 +3,7 @@ import Submission from '../models/submission_model';
 import submit from './submission_controller';
 import { createJoinCode, joinMoveByCode } from './join_code_controller';
 import data from '../../static/questions.json';
+import getResultJson from '../main_algo';
 
 export async function createMove(moveInitInfo) {
   const newMove = new Move();
@@ -56,7 +57,7 @@ export async function createMove(moveInitInfo) {
 export async function getResults(moveId) {
   const move = await Move.findById(moveId).lean();
   const submissions = await Submission.find({ moveId }).lean();
-  const { location } = move;
+  const { location, radius } = move;
   const results = [];
   for (let i = 0; i < submissions.length; i += 1) {
     for (let j = 0; j < submissions[i].responses.length; j += 1) {
@@ -66,7 +67,8 @@ export async function getResults(moveId) {
     }
   }
   console.log(results, location);
-  return null;
+  const res = await getResultJson(results, location, radius);
+  return res;
 }
 
 export async function joinMove(joinCode, user) {
