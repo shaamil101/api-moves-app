@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import * as Moves from './controllers/move_controller';
-
+import { requireAuth, requireSignin } from './services/passport';
+import * as UserController from './controllers/user_controller';
 const router = Router();
 
 router.get('/', (req, res) => {
@@ -65,5 +66,20 @@ router.route('/join')
 
 router.route('/move/status')
   .get(handleGetMoveState);
+
+// Signin route
+router.post('/signin', requireSignin, async (req, res) => {
+  await UserController.signin(req, res);
+});
+
+// Signup route
+router.post('/signup', async (req, res) => {
+  await UserController.signup(req, res);
+});
+
+// Signout route
+router.post('/signout', requireAuth, async (req, res) => {
+  await UserController.signout(req, res);
+});
 
 export default router;
