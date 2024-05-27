@@ -2,6 +2,7 @@ import { Router } from 'express';
 import * as Moves from './controllers/move_controller';
 import { requireAuth, requireSignin } from './services/passport';
 import * as UserController from './controllers/user_controller';
+
 const router = Router();
 
 router.get('/', (req, res) => {
