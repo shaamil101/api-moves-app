@@ -3,7 +3,7 @@
         "prompt": "Hungry?",
         "yesId": 2,
         "noId": 18,
-        "gif": "someUrl",
+        "gif": "https://media1.giphy.com/media/ylyUQnn01Vh23qfq3m/200w.gif?cid=6c09b9522zjspkyklrcocqi27zgy6i3gti4pub7hiad1zelq&ep=v1_gifs_search&rid=200w.gif&ct=g",
         "backendPrompt" : "I want to go to a restaurant",
         "type": "plan"
       },
@@ -11,7 +11,7 @@
         "prompt": "Spicy?",
         "yesId": 10,
         "noId": 3,
-        "gif": "someUrl",
+        "gif": "https://media1.giphy.com/media/j6lCwtfMS2ZNmfoyrv/giphy.gif?cid=6c09b9520m7dxn02yih9sqe90eqac86uhdiz0dw6r9kbs4ik&ep=v1_gifs_search&rid=giphy.gif&ct=g",
         "backendPrompt" : "I want spicy food",
         "type": "plan"
       },
@@ -19,7 +19,7 @@
         "prompt": "European?",
         "yesId": 7,
         "noId": 4,
-        "gif": "someUrl",
+        "gif": "./question_gifs/",
         "backendPrompt" : "I want European food",
         "type": "plan"
       },
@@ -27,7 +27,7 @@
         "prompt": "American?",
         "yesId": 6,
         "noId": 5,
-        "gif": "someUrl",
+        "gif": "",
         "backendPrompt" : "I want American food",
         "type": "plan"
       },
@@ -35,7 +35,7 @@
         "prompt": "Seafood?",
         "yesId": 17,
         "noId": 17,
-        "gif": "someUrl",
+        "gif": "https://25.media.tumblr.com/e432973414e6f8a0fc1ef74ec8efeff2/tumblr_mrb07rveFQ1sd5eo5o1_500.gif",
         "backendPrompt" : "I want seafood",
         "type": "plan"
       },
@@ -64,10 +64,10 @@
         "type": "plan"
       },
       "9" : {
-        "prompt": "Like olive oil?",
+        "prompt": "Like pasta?",
         "yesId": 17,
         "noId": 17,
-        "gif": "someUrl",
+        "gif": "https://media3.giphy.com/media/135E47VKw6TM6A/200w.gif?cid=6c09b952ypldxgjlswe1fkmmg8ym5oe116pyq7ybmf7itzri&ep=v1_gifs_search&rid=200w.gif&ct=g",
         "backendPrompt" : "I want italian food",
         "type": "plan"
       },
@@ -107,7 +107,7 @@
         "prompt": "Feeling bold?",
         "yesId": 17,
         "noId": 17,
-        "gif": "someUrl",
+        "gif": "https://i.chzbgr.com/full/8396330240/hCCF8235E/now-do-a-wheelie",
         "backendPrompt" : "I want Indian food",
         "type": "plan"
       },
@@ -131,7 +131,7 @@
         "prompt": "Drinks after dinner?",
         "yesId": 18,
         "noId": 31,
-        "gif": "someUrl",
+        "gif": "https://media1.tenor.com/m/Je5OD50LwbkAAAAC/beer-cheers.gif",
         "backendPrompt" : "I want drinks after dinner",
         "type": "plan"
       },
@@ -139,7 +139,7 @@
         "prompt": "Club Night?",
         "yesId": 24,
         "noId": 19,
-        "gif": "someUrl",
+        "gif": "https://media0.giphy.com/media/ORjfgiG9ZtxcQQwZzv/giphy.gif?cid=6c09b952p9njgczf9tcwwozrb49mrqdjlymfq08zm2qmgs4h&ep=v1_gifs_search&rid=giphy.gif&ct=g",
         "backendPrompt" : "I want to go to a club",
         "type": "plan"
       },
@@ -187,7 +187,7 @@
         "prompt": "Wanna dance?",
         "yesId": 26,
         "noId": 25,
-        "gif": "someUrl",
+        "gif": "https://media4.giphy.com/media/Cf6KmzYYJAg8w/giphy.gif?cid=6c09b952mpvd3dj5f18vj3tnfafkb0955bbp9zehxjqyyl2g&ep=v1_gifs_search&rid=giphy.gif&ct=g",
         "backendPrompt" : "I want somewhere to dance",
         "type": "plan"
       },
@@ -203,7 +203,7 @@
         "prompt": "EDM vibes?",
         "yesId": 31,
         "noId": 29,
-        "gif": "someUrl",
+        "gif": "https://media0.giphy.com/media/aUhEBE0T8XNHa/200w.gif?cid=6c09b952qc4i14jya5s1v02i5u9nle42jlfz6m1ndihb4ze0&ep=v1_gifs_search&rid=200w.gif&ct=g",
         "backendPrompt" : "I want somewhere with edm vibes",
         "type": "plan"
       },
@@ -223,14 +223,6 @@
         "backendPrompt" : "I want somewhere with hip-hop beats",
         "type": "plan"
       },
-      "30" : {
-        "prompt": "EDM?",
-        "yesId": 31,
-        "noId": 31,
-        "gif": "someUrl",
-        "backendPrompt" : "I want somewhere with EDM music",
-        "type": "plan"
-      },
       "31" : {
         "prompt": "Feeling fancy?",
         "yesId": 32,
@@ -243,7 +235,7 @@
         "prompt": "Splurge today?",
         "yesId": -1,
         "noId": -1,
-        "gif": "someUrl",
+        "gif": "https://media1.giphy.com/media/14vTnFcC3Oom4M/giphy.gif?cid=6c09b952930gfts277juslo5uwxk1hb74wp6vwvybv8r3c7y&ep=v1_gifs_search&rid=giphy.gif&ct=g",
         "backendPrompt" : "I want somewhere expensive",
         "type": "plan"
       }
