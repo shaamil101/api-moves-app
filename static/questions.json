@@ -1,56 +1,250 @@
 {
       "1" : {
-        "prompt": "Are you hungry?",
+        "prompt": "Hungry?",
         "yesId": 2,
-        "noId": 3,
+        "noId": 18,
         "gif": "someUrl",
-        "backendPrompt" : "hungry",
+        "backendPrompt" : "I want to go to a restaurant",
         "type": "plan"
       },
       "2" : {
-        "prompt": "Want something spicy?",
-        "yesId": 4,
-        "noId": 4,
+        "prompt": "Spicy?",
+        "yesId": 10,
+        "noId": 3,
         "gif": "someUrl",
-        "backendPrompt" : "spicy",
-        "type": "preference"
+        "backendPrompt" : "I want spicy food",
+        "type": "plan"
       },
       "3" : {
-        "prompt": "Do you want a sweet treat?",
-        "yesId": 5,
-        "noId": 5,
+        "prompt": "European?",
+        "yesId": 7,
+        "noId": 4,
         "gif": "someUrl",
-        "backendPrompt" : "dessert",
+        "backendPrompt" : "I want European food",
         "type": "plan"
       },
       "4" : {
-        "prompt": "Do you want to spend $$?",
-        "yesId": 3,
-        "noId": 3,
-        "gif": "someUrl",
-        "backendPrompt" : "money",
-        "type": "preference"
-      },
-      "5": {
-        "prompt": "Are you feeling thirsty?",
+        "prompt": "American?",
         "yesId": 6,
-        "noId": 6,
+        "noId": 5,
         "gif": "someUrl",
-        "backendPrompt" : "drinks",
+        "backendPrompt" : "I want American food",
         "type": "plan"
       },
-      "6": {
-        "prompt": "Are you feeling groovy?",
-        "yesId": 7,
-        "noId": 7,
+      "5" : {
+        "prompt": "Seafood?",
+        "yesId": 17,
+        "noId": 17,
         "gif": "someUrl",
-        "backendPrompt" : "club",
+        "backendPrompt" : "I want seafood",
+        "type": "plan"
+      },
+      "6" : {
+        "prompt": "Southern Food?",
+        "yesId": 17,
+        "noId": 17,
+        "gif": "someUrl",
+        "backendPrompt" : "I want southern food",
         "type": "plan"
       },
       "7" : {
-        "prompt": "Do you have any other thoughts?",
+        "prompt": "Mediterranean?",
+        "yesId": 9,
+        "noId": 8,
+        "gif": "someUrl",
+        "backendPrompt" : "I want mediterranean food",
+        "type": "plan"
+      },
+      "8" : {
+        "prompt": "Meat and potatoes?",
+        "yesId": 17,
+        "noId": 17,
+        "gif": "someUrl",
+        "backendPrompt" : "I want german food",
+        "type": "plan"
+      },
+      "9" : {
+        "prompt": "Like olive oil?",
+        "yesId": 17,
+        "noId": 17,
+        "gif": "someUrl",
+        "backendPrompt" : "I want italian food",
+        "type": "plan"
+      },
+      "10" : {
+        "prompt": "Asian?",
+        "yesId": 16,
+        "noId": 11,
+        "gif": "someUrl",
+        "backendPrompt" : "I want asian food",
+        "type": "plan"
+      },
+      "11" : {
+        "prompt": "Latin Food?",
+        "yesId": 13,
+        "noId": 12,
+        "gif": "someUrl",
+        "backendPrompt" : "I want latin food",
+        "type": "plan"
+      },
+      "12" : {
+        "prompt": "Hearty meal?",
+        "yesId": 17,
+        "noId": 17,
+        "gif": "someUrl",
+        "backendPrompt" : "I want ethiopian food",
+        "type": "plan"
+      },
+      "13" : {
+        "prompt": "Like beans?",
+        "yesId": 17,
+        "noId": 17,
+        "gif": "someUrl",
+        "backendPrompt" : "I want mexican food",
+        "type": "plan"
+      },
+      "14" : {
+        "prompt": "Feeling bold?",
+        "yesId": 17,
+        "noId": 17,
+        "gif": "someUrl",
+        "backendPrompt" : "I want Indian food",
+        "type": "plan"
+      },
+      "15" : {
+        "prompt": "Coconut-y?",
+        "yesId": 17,
+        "noId": 17,
+        "gif": "someUrl",
+        "backendPrompt" : "I want thai food",
+        "type": "plan"
+      },
+      "16" : {
+        "prompt": "Southeast Asian?",
+        "yesId": 15,
+        "noId": 14,
+        "gif": "someUrl",
+        "backendPrompt" : "I want southeast asian food",
+        "type": "plan"
+      },
+      "17" : {
+        "prompt": "Drinks after dinner?",
+        "yesId": 18,
+        "noId": 31,
+        "gif": "someUrl",
+        "backendPrompt" : "I want drinks after dinner",
+        "type": "plan"
+      },
+      "18" : {
+        "prompt": "Club Night?",
+        "yesId": 24,
+        "noId": 19,
+        "gif": "someUrl",
+        "backendPrompt" : "I want to go to a club",
+        "type": "plan"
+      },
+      "19" : {
+        "prompt": "Rooftop Drinks?",
+        "yesId": 23,
+        "noId": 20,
+        "gif": "someUrl",
+        "backendPrompt" : "I want rooftop drinks",
+        "type": "plan"
+      },
+      "20" : {
+        "prompt": "Pub vibe?",
+        "yesId": 22,
+        "noId": 21,
+        "gif": "someUrl",
+        "backendPrompt" : "I want to go to a pub",
+        "type": "plan"
+      },
+      "21" : {
+        "prompt": "Speakeasy?",
+        "yesId": 31,
+        "noId": 31,
+        "gif": "someUrl",
+        "backendPrompt" : "I want to go to a speakeasy",
+        "type": "plan"
+      },
+      "22" : {
+        "prompt": "Craft beers?",
+        "yesId": 31,
+        "noId": 31,
+        "gif": "someUrl",
+        "backendPrompt" : "I want craft beers",
+        "type": "plan"
+      },
+      "23" : {
+        "prompt": "View important?",
+        "yesId": 31,
+        "noId": 31,
+        "gif": "someUrl",
+        "backendPrompt" : "I want somewhere with a view",
+        "type": "plan"
+      },
+      "24" : {
+        "prompt": "Wanna dance?",
+        "yesId": 26,
+        "noId": 25,
+        "gif": "someUrl",
+        "backendPrompt" : "I want somewhere to dance",
+        "type": "plan"
+      },
+      "25" : {
+        "prompt": "Exclusive feel?",
+        "yesId": 31,
+        "noId": 27,
+        "gif": "someUrl",
+        "backendPrompt" : "I want somewhere with an exclusive feel",
+        "type": "plan"
+      },
+      "26" : {
+        "prompt": "EDM vibes?",
+        "yesId": 31,
+        "noId": 29,
+        "gif": "someUrl",
+        "backendPrompt" : "I want somewhere with edm vibes",
+        "type": "plan"
+      },
+      "27" : {
+        "prompt": "Craft cocktails?",
+        "yesId": 31,
+        "noId": 31,
+        "gif": "someUrl",
+        "backendPrompt" : "I want somewhere with good cocktails",
+        "type": "plan"
+      },
+      "29" : {
+        "prompt": "Hip-hop beats?",
+        "yesId": 31,
+        "noId": 31,
+        "gif": "someUrl",
+        "backendPrompt" : "I want somewhere with hip-hop beats",
+        "type": "plan"
+      },
+      "30" : {
+        "prompt": "EDM?",
+        "yesId": 31,
+        "noId": 31,
+        "gif": "someUrl",
+        "backendPrompt" : "I want somewhere with EDM music",
+        "type": "plan"
+      },
+      "31" : {
+        "prompt": "Feeling fancy?",
+        "yesId": 32,
+        "noId": 32,
+        "gif": "someUrl",
+        "backendPrompt" : "I want somewhere fancy",
+        "type": "plan"
+      },
+      "32" : {
+        "prompt": "Splurge today?",
         "yesId": -1,
         "noId": -1,
-        "type": "preference"
+        "gif": "someUrl",
+        "backendPrompt" : "I want somewhere expensive",
+        "type": "plan"
       }
 }
