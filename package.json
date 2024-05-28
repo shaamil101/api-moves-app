@@ -34,7 +34,6 @@
     "jwt-simple": "^0.5.6",
     "mongoose": "^8.3.5",
     "morgan": "^1.10.0",
-    "openai": "^4.47.1",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
