@@ -1,10 +1,10 @@
 import axios from 'axios';
 import OpenAI from 'openai';
+import dotenv from 'dotenv';
+dotenv.config({ silent: true });
 
-const API_KEY = 'google key';
-const GPT_KEY = 'chatgpt key';
 const openai = new OpenAI({
-  apiKey: GPT_KEY,
+  apiKey: process.env.OPENAI_API_KEY,
 });
 const maxRequests = 5;
 let requestCounter = 0;
@@ -20,7 +20,7 @@ function fetchAllPlaces(url, places = []) {
       if (data.next_page_token && requestCounter < maxRequests) {
         return new Promise((resolve) => { setTimeout(resolve, 2000); })
           .then(() => {
-            const nextPageUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?pagetoken=${data.next_page_token}&key=${API_KEY}`;
+            const nextPageUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?pagetoken=${data.next_page_token}&key=${process.env.PLACES_API_KEY}`;
             return fetchAllPlaces(nextPageUrl, places);
           });
       } else {
@@ -47,7 +47,7 @@ export default async function getResultJson(results, location, radius) {
   const typeBar = 'bar';
   const typeClub = 'night_club';
   const locationString = `${location.latitude},${location.longitude}`;
-  const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${locationString}&radius=${radius}&type=${typeRes}|${typeBar}|${typeClub}&key=${API_KEY}`;
+  const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${locationString}&radius=${radius}&type=${typeRes}|${typeBar}|${typeClub}&key=${process.env.PLACES_API_KEY}`;
 
   const places = await fetchAllPlaces(url);
   const placesTrunc = places.map((place) => {
@@ -76,7 +76,7 @@ export default async function getResultJson(results, location, radius) {
 
   for (let i = 0; i < optionsJson.length; i += 1) {
     const placeId = optionsJson[i].place_id;
-    const revUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=reviews&key=${API_KEY}`;
+    const revUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=reviews&key=${process.env.PLACES_API_KEY}`;
     // eslint-disable-next-line no-await-in-loop
     const response = await axios.get(revUrl);
     const reviews = response.data.result.reviews.slice(0, 3);
