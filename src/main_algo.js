@@ -1,8 +1,10 @@
 import axios from 'axios';
 import OpenAI from 'openai';
+import dotenv from 'dotenv';
+dotenv.config({ silent: true });
 
-const API_KEY = 'google key';
-const GPT_KEY = 'chatgpt key';
+const API_KEY = process.env.GOOGLE_API_KEY;
+const GPT_KEY = process.env.OPENAI_API_KEY;
 const openai = new OpenAI({
   apiKey: GPT_KEY,
 });
