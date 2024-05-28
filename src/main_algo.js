@@ -48,6 +48,23 @@ async function callGPT(prompt) {
   }
 }
 
+// inspo from stack overflow: https://stackoverflow.com/questions/18883601/function-to-calculate-distance-between-two-coordinates
+function getDistance(lat1, lon1, lat2, lon2) {
+  const earthRadiusMiles = 3958.8; // Radius of the Earth in miles
+  const dLat = deg2rad(lat2 - lat1);
+  const dLon = deg2rad(lon2 - lon1);
+  const a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+    + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2))
+    * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const distance = earthRadiusMiles * c;
+  return distance;
+}
+
+function deg2rad(deg) {
+  return deg * (Math.PI / 180);
+}
+
 export default async function getResultJson(results, location, radius) {
   const typeRes = 'restaurant';
   const typeBar = 'bar';
@@ -103,8 +120,6 @@ export default async function getResultJson(results, location, radius) {
 
   // return finalResult;
 
-  console.log(places);
-
   const finalPlaces = places.map((place) => {
     return {
       name: place.name,
@@ -112,6 +127,7 @@ export default async function getResultJson(results, location, radius) {
       place_id: place.place_id,
       rating: place.rating,
       price_level: place.price_level,
+      distance: getDistance(location.latitude, location.longitude, place.geometry.location.lat, place.geometry.location.lng),
     };
   });
 
