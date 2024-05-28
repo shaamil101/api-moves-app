@@ -14,6 +14,9 @@ router.get('/', (req, res) => {
 const handleCreateMove = async (req, res) => {
   try {
     const result = await Moves.createMove(req.body.moveInitInfo);
+    console.log('Resulting Move Created:', req.body.moveInitInfo.creatorNumber, result.moveId);
+    const result2 = await UserController.addMove(req.body.moveInitInfo.creatorNumber, result.moveId);
+    console.log(result2);
     res.json(result);
   } catch (error) {
     res.status(404).json({ error });

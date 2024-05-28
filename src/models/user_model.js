@@ -12,6 +12,7 @@ const UserSchema = new Schema({
     type: Map,
     of: { type: Schema.Types.ObjectId, ref: 'Move' },
   },
+  movesList: [{ type: Schema.Types.ObjectId, ref: 'Move' }],
   responses: {
     type: Map,
     of: { type: Schema.Types.ObjectId, ref: 'Response' },

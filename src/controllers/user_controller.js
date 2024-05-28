@@ -105,3 +105,18 @@ export async function getUserInfo(userNumber) {
 
   return state;
 }
+
+export async function addMove(userPhoneNumber, moveId) {
+  const user = await User.findOne({ number: userPhoneNumber });
+
+  console.log('User located: ', user);
+
+  // Add id to map of move Ids
+  user.movesList.append(moveId);
+
+  console.log('Updated local user: ', user);
+
+  const res = await user.save();
+
+  return res;
+}
