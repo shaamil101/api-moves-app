@@ -1,6 +1,7 @@
 import jwt from 'jwt-simple';
-import User from '../models/user_model';
 import dotenv from 'dotenv';
+import User from '../models/user_model';
+
 dotenv.config({ silent: true });
 
 // Function to generate token for a user
@@ -30,7 +31,6 @@ export const signup = async (req, res) => {
 
     // Respond with a token for the user
     return res.json({ token: tokenForUser(user) });
-
   } catch (err) {
     // Handle any unexpected errors
     console.error(err);
@@ -60,7 +60,6 @@ export const signin = async (req, res) => {
 
     // Generate and return a token if authentication is successful
     return res.json({ token: tokenForUser(user), number: user.number });
-
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: 'Internal server error' });

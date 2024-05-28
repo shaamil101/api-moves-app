@@ -23,22 +23,22 @@ const jwtOptions = {
 
 // username/number + password authentication strategy
 const localLogin = new LocalStrategy(localOptions, async (number, password, done) => {
-    let user;
-    let isMatch;
-  
+  let user;
+  let isMatch;
+
   try {
-      user = await User.findOne({ number });
+    user = await User.findOne({ number });
     if (!user) {
       return done(null, false);
     }
-      isMatch = await user.comparePassword(password);
+    isMatch = await user.comparePassword(password);
     if (!isMatch) {
       return done(null, false);
     } else {
       return done(null, user);
     }
   } catch (error) {
-      return done(error);
+    return done(error);
   }
 });
 

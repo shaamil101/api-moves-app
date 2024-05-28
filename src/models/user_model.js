@@ -10,30 +10,30 @@ const UserSchema = new Schema({
   location: { type: Object },
   moves: {
     type: Map,
-    of: { type: Schema.Types.ObjectId, ref: 'Move' }
+    of: { type: Schema.Types.ObjectId, ref: 'Move' },
   },
   responses: {
     type: Map,
-    of: { type: Schema.Types.ObjectId, ref: 'Response' }
+    of: { type: Schema.Types.ObjectId, ref: 'Response' },
   },
   prompts: {
     type: Map,
-    of: { type: Schema.Types.ObjectId, ref: 'Prompt' }
+    of: { type: Schema.Types.ObjectId, ref: 'Prompt' },
   },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
   friends: {
     type: Map,
-    of: { type: Schema.Types.ObjectId, ref: 'User' }
-  }
+    of: { type: Schema.Types.ObjectId, ref: 'User' },
+  },
 }, {
   toObject: {
-    virtuals: true
+    virtuals: true,
   },
   toJSON: {
-    virtuals: true
+    virtuals: true,
   },
-  timestamps: true
+  timestamps: true,
 });
 
 // Pre-save hook to hash the password before saving the user
