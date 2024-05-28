@@ -75,3 +75,33 @@ export const signout = async (req, res) => {
     return res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+// returns the main state with status, users, username, and move name
+export async function getUserInfo(userNumber) {
+  console.log('Number using to query for user info on backend:', userNumber);
+  const user = await User.findOne({ number: userNumber });
+  // const users = await User.find();
+
+  // console.log('All users:', users);
+
+  if (!user) {
+    console.log('NO USER WITH THAT NUMBER');
+    return null;
+  }
+
+  const state = {
+    id: user.id,
+    number: user.number,
+    name: user.name,
+    password: user.password,
+    location: user.location,
+    moves: user.moves,
+    responses: user.responses,
+    prompts: user.responses,
+    createdAt: user.createdAt,
+    updatedAt: user.updatedAt,
+    friends: user.friends,
+  };
+
+  return state;
+}

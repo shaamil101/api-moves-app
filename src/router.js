@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import * as Moves from './controllers/move_controller';
-import { requireAuth, requireSignin } from './services/passport';
+// import { requireAuth, requireSignin } from './services/passport';
+import { requireSignin } from './services/passport';
 import * as UserController from './controllers/user_controller';
 
 const router = Router();
@@ -72,6 +73,18 @@ const handleGetResults = async (req, res) => {
     res.status(404).json({ error });
   }
 };
+
+const handleGetUserInfo = async (req, res) => {
+  try {
+    const result = await UserController.getUserInfo(req.query.number);
+    res.json(result);
+  } catch (error) {
+    res.status(404).json({ error });
+  }
+};
+
+router.route('/users')
+  .get(handleGetUserInfo);
 
 router.route('/results')
   .get(handleGetResults);
