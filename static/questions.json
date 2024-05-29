@@ -19,7 +19,7 @@
         "prompt": "European?",
         "yesId": 7,
         "noId": 4,
-        "gif": "./question_gifs/",
+        "gif": "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3NsaDU1bGcwa3Zsb2l3dWVjcWZneTZwZnNld3h2ODZjejhzY2RmbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/eU4s15RBIoZmEjmVBR/giphy.gif",
         "backendPrompt" : "I want European food",
         "type": "plan"
       },
@@ -27,7 +27,7 @@
         "prompt": "American?",
         "yesId": 6,
         "noId": 5,
-        "gif": "",
+        "gif": "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ253bjIzdThtcHliMW5xa2x5NmJuaW0xaGJsOGY4dmFyYXp6Y25kdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/bTdbofayzEJg5bOmuv/giphy.gif",
         "backendPrompt" : "I want American food",
         "type": "plan"
       },
@@ -43,7 +43,7 @@
         "prompt": "Southern Food?",
         "yesId": 17,
         "noId": 17,
-        "gif": "someUrl",
+        "gif": "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExajRsbW9xeHYzM2J5MjJ1ZXZzMG9qajkydXlqajNrZDU1Y2pkYXd4dCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/epTvmar1ICCYT9aRwM/giphy.gif",
         "backendPrompt" : "I want southern food",
         "type": "plan"
       },
@@ -51,7 +51,7 @@
         "prompt": "Mediterranean?",
         "yesId": 9,
         "noId": 8,
-        "gif": "someUrl",
+        "gif": "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNGwxbzl6bHU4cGhtNm02N2hlOXBwdTljdHRqMWVoZTBlNGdvaWdzMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/oIiLWDtCjKlQVzCFgb/giphy.gif",
         "backendPrompt" : "I want mediterranean food",
         "type": "plan"
       },
@@ -59,7 +59,7 @@
         "prompt": "Meat and potatoes?",
         "yesId": 17,
         "noId": 17,
-        "gif": "someUrl",
+        "gif": "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExemVxeTNzNmR2dDRidXlmZWI2bzFib3EwYnY4MzdnanFvb2sydDV5MyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/gHVtUzINxjq4zhD4aP/giphy.gif",
         "backendPrompt" : "I want german food",
         "type": "plan"
       },
@@ -75,7 +75,7 @@
         "prompt": "Asian?",
         "yesId": 16,
         "noId": 11,
-        "gif": "someUrl",
+        "gif": "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3k1NXZqMWlpejE3eG9md2Y2b2dnc2thbDBidjRvNm00M3dlcTFjZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/5n5CPcCgv8dkByKoxN/giphy.gif",
         "backendPrompt" : "I want asian food",
         "type": "plan"
       },
@@ -83,7 +83,7 @@
         "prompt": "Latin Food?",
         "yesId": 13,
         "noId": 12,
-        "gif": "someUrl",
+        "gif": "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbW96NXoyaGNmZ29icGtjZDhxb3NjbWtoZG0zc3c2MHhodHRreDFlZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/celiI4uT7AUr8bLXIC/giphy.gif",
         "backendPrompt" : "I want latin food",
         "type": "plan"
       },
@@ -91,7 +91,7 @@
         "prompt": "Hearty meal?",
         "yesId": 17,
         "noId": 17,
-        "gif": "someUrl",
+        "gif": "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGQ1MGIxbHpjMWJ3MHUzejViaTg0amVvczN0djFnd3V2dGNwNHc2NSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/npY5Jqcr7kBhDaQTjq/giphy.gif",
         "backendPrompt" : "I want ethiopian food",
         "type": "plan"
       },
@@ -99,7 +99,7 @@
         "prompt": "Like beans?",
         "yesId": 17,
         "noId": 17,
-        "gif": "someUrl",
+        "gif": "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGhuMm9vdWp3ZWMxYTNqOWJzdWk4ZGdzbjM0YWd6ejg2MTF1cW1qdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/WOYUguCVl2rgkzMxG9/giphy.gif",
         "backendPrompt" : "I want mexican food",
         "type": "plan"
       },
@@ -115,7 +115,7 @@
         "prompt": "Coconut-y?",
         "yesId": 17,
         "noId": 17,
-        "gif": "someUrl",
+        "gif": "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmp2dXBkamk1dzN1MjVtMW5hMHRvZjh0YzQ5dG1kb3p5azA2OTd5eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/oFWwPj6YtE1qkxF4wx/giphy-downsized-large.gif",
         "backendPrompt" : "I want thai food",
         "type": "plan"
       },
@@ -123,7 +123,7 @@
         "prompt": "Southeast Asian?",
         "yesId": 15,
         "noId": 14,
-        "gif": "someUrl",
+        "gif": "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExem96bmhxdHp6NGNqbm9nazJ4MWhtdWYxZzcwcG5lenB6eXk2cTFvdCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l1ugkcFeUqR5dyBt6/giphy.gif",
         "backendPrompt" : "I want southeast asian food",
         "type": "plan"
       },
@@ -147,7 +147,7 @@
         "prompt": "Rooftop Drinks?",
         "yesId": 23,
         "noId": 20,
-        "gif": "someUrl",
+        "gif": "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDd6a3d4czVqM3B3dzEzd2Z5aGwzYWVkanh4NGNhMXQ1YzJndXI3MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/321INpxPF7QjR6aGas/giphy.gif",
         "backendPrompt" : "I want rooftop drinks",
         "type": "plan"
       },
@@ -155,7 +155,7 @@
         "prompt": "Pub vibe?",
         "yesId": 22,
         "noId": 21,
-        "gif": "someUrl",
+        "gif": "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExdThqZGJxbGczMHZzOTd1Z2UwdXlvbHpmNnVsb3BjbzlxMjRtbGgyaCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/QsyPRpG6WVR6SYfBVw/giphy.gif",
         "backendPrompt" : "I want to go to a pub",
         "type": "plan"
       },
@@ -163,7 +163,7 @@
         "prompt": "Speakeasy?",
         "yesId": 31,
         "noId": 31,
-        "gif": "someUrl",
+        "gif": "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExdDRkMm9zdDhmZzNwZzl5bDRuZWN5cHV3N3RlOWM3M3I1ejN1b2lleiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/kGiSyHKccINYizFr4f/giphy.gif",
         "backendPrompt" : "I want to go to a speakeasy",
         "type": "plan"
       },
@@ -171,7 +171,7 @@
         "prompt": "Craft beers?",
         "yesId": 31,
         "noId": 31,
-        "gif": "someUrl",
+        "gif": "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMGFldTgzcWRkZjZydXE2bGR3NmthMmNnb3ozZnhwYm9ycmc0bTljdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/nt0AufkCqVRkgA08O0/giphy.gif",
         "backendPrompt" : "I want craft beers",
         "type": "plan"
       },
@@ -179,7 +179,7 @@
         "prompt": "View important?",
         "yesId": 31,
         "noId": 31,
-        "gif": "someUrl",
+        "gif": "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzdpazBzZXBrdGdwYXRvNGg1bjN4dzVudDJ4YWcyMXM3NGJjMnJzaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Ru86ce44TU4A8/giphy.gif",
         "backendPrompt" : "I want somewhere with a view",
         "type": "plan"
       },
@@ -195,7 +195,7 @@
         "prompt": "Exclusive feel?",
         "yesId": 31,
         "noId": 27,
-        "gif": "someUrl",
+        "gif": "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExaTYzZmNyN21nb2MwbTJrdzc1NnR4dzA3N215bnpyNWF5aTNrejFvNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/myeDS6IoQrnyqus91Q/giphy.gif",
         "backendPrompt" : "I want somewhere with an exclusive feel",
         "type": "plan"
       },
@@ -211,7 +211,7 @@
         "prompt": "Craft cocktails?",
         "yesId": 31,
         "noId": 31,
-        "gif": "someUrl",
+        "gif": "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3M2NHowYnpndDNpemhxOG12bjd6ZHZwbDB0NGs0NWllOHJpMm1iNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TJh0SCHYvb6DrIg0ar/giphy.gif",
         "backendPrompt" : "I want somewhere with good cocktails",
         "type": "plan"
       },
@@ -219,7 +219,7 @@
         "prompt": "Hip-hop beats?",
         "yesId": 31,
         "noId": 31,
-        "gif": "someUrl",
+        "gif": "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDY0Znk4YXdyZmNoMjA1MmsyZHZucjZ1ajM4eDdkaHdqazZ4a2xyNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/2rACp9a8RJCq5q2aqN/giphy.gif",
         "backendPrompt" : "I want somewhere with hip-hop beats",
         "type": "plan"
       },
@@ -227,7 +227,7 @@
         "prompt": "Feeling fancy?",
         "yesId": 32,
         "noId": 32,
-        "gif": "someUrl",
+        "gif": "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExZGZoaGs1M2toZTdobWduNmRvcWxoZGNndDV1Y2g1bmRnajNtOGxpaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Cfun4zCShcOlO/giphy.gif",
         "backendPrompt" : "I want somewhere fancy",
         "type": "plan"
       },
