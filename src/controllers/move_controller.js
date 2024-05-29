@@ -8,6 +8,7 @@ import getResultJson from '../main_algo';
 export async function createMove(moveInitInfo) {
   const newMove = new Move();
   newMove.creator = moveInitInfo.creator;
+  newMove.creatorNumber = moveInitInfo.creatorNumber;
   newMove.responses = [];
   const questions = Object.keys(data).map((key) => {
     return {
@@ -124,6 +125,7 @@ export async function getState(moveId, user) {
     users: move.users,
     yourName: user,
     creator: move.creator,
+    creatorNumber: move.creatorNumber,
     moveName: move.moveName,
   };
 
