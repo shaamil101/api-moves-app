@@ -58,8 +58,7 @@ export default async function getResultJson(results, location, radius) {
       types: place.types,
     };
   });
-  const prompt = `Select the twenty best options from the following places and return their names as a simple array, just that as output please ${JSON.stringify(placesTrunc)} you should select the places according to the following responses of this survey ${JSON.stringify(results)} as we will later create an itenary for a night out based on these places`;
-
+  const prompt = `select the twenty best options from the following places and return their names as a simple array, just that as output please ${JSON.stringify(placesTrunc)} you should select the places according to the following responses of this survey ${JSON.stringify(results)} as we will later create an itenary for a night out based on these places. please return raw text with no code block ticks`;
   const options = await callGPT(prompt);
   const optionsArray = JSON.parse(options.match(/\[(.*?)\]/s)[0]);
   const optionsJson = places.filter((place) => { return optionsArray.includes(place.name); }).map((place) => {
@@ -84,7 +83,7 @@ export default async function getResultJson(results, location, radius) {
     optionsJson[i].reviews = reviewTexts;
   }
 
-  const finalPrompt = `select an itenerary for a night out from the following places ${JSON.stringify(optionsJson)} based on the following responses of this survey ${JSON.stringify(results)} please return just the json of the places in the order in which they should be visited you should only include as many places as would make sense to go to on one night out based on the survey results. please return raw text with no code block ticks`;
+  const finalPrompt = `select an itenerary with at most one place per type (e.g. bar, restaurant, club) for a night out from the following places ${JSON.stringify(optionsJson)} based on the following responses of this survey ${JSON.stringify(results)} please return just the json of the places in the order in which they should be visited you should only include as many places as would make sense to go to on one night out based on the survey results. please return raw text with no code block ticks`;
   const finalRes = await callGPT(finalPrompt);
   const finalResult = JSON.parse(finalRes).map((place) => {
     return {
@@ -96,7 +95,6 @@ export default async function getResultJson(results, location, radius) {
     };
   });
 
-  console.log(finalResult);
 
   return finalResult;
 }
