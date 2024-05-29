@@ -7,6 +7,7 @@ export const MoveStates = {
 };
 const MoveSchema = new Schema({
   creator: String,
+  creatorNumber: String,
   questions: [{
     questionId: { type: Number },
     prompt: { type: String },

@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import * as Moves from './controllers/move_controller';
-import { requireAuth, requireSignin } from './services/passport';
+// import { requireAuth, requireSignin } from './services/passport';
+import { requireSignin } from './services/passport';
 import * as UserController from './controllers/user_controller';
 
 const router = Router();
@@ -13,6 +14,9 @@ router.get('/', (req, res) => {
 const handleCreateMove = async (req, res) => {
   try {
     const result = await Moves.createMove(req.body.moveInitInfo);
+    console.log('Resulting Move Created:', req.body.moveInitInfo.creatorNumber, result.moveId);
+    const result2 = await UserController.addMove(req.body.moveInitInfo.creatorNumber, result.moveId);
+    console.log(result2);
     res.json(result);
   } catch (error) {
     res.status(404).json({ error });
@@ -31,6 +35,12 @@ const handleSubmitResponse = async (req, res) => {
 const handleJoinMove = async (req, res) => {
   try {
     const result = await Moves.joinMove(req.body.code, req.body.user);
+
+    const result2 = await UserController.addMove(req.body.number, result.id);
+    console.log(result2);
+
+    console.log(req.body.number);
+    console.log(result);
     res.json(result);
   } catch (error) {
     res.status(404).json({ error });
@@ -72,6 +82,18 @@ const handleGetResults = async (req, res) => {
     res.status(404).json({ error });
   }
 };
+
+const handleGetUserInfo = async (req, res) => {
+  try {
+    const result = await UserController.getUserInfo(req.query.number);
+    res.json(result);
+  } catch (error) {
+    res.status(404).json({ error });
+  }
+};
+
+router.route('/users')
+  .get(handleGetUserInfo);
 
 router.route('/results')
   .get(handleGetResults);
