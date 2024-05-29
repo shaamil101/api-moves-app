@@ -175,5 +175,5 @@ export async function getQuestion(user, moveId) {
   if (!questionData) {
     return { questionId, prompt: '' };
   }
-  return { questionId, prompt: questionData.prompt };
+  return { questionId, prompt: questionData.prompt, gif: questionData.gif };
 }
