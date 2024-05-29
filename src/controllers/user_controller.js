@@ -94,6 +94,7 @@ export async function getUserInfo(userNumber) {
     number: user.number,
     name: user.name,
     password: user.password,
+    movesList: user.movesList,
     location: user.location,
     moves: user.moves,
     responses: user.responses,
@@ -112,7 +113,7 @@ export async function addMove(userPhoneNumber, moveId) {
   console.log('User located: ', user);
 
   // Add id to map of move Ids
-  user.movesList.append(moveId);
+  user.movesList.push(moveId);
 
   console.log('Updated local user: ', user);
 
