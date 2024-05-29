@@ -33,7 +33,7 @@ function fetchAllPlaces(url, places = []) {
 function getPhotoUrl(photoReference, maxWidth = 400) {
   const url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${maxWidth}&photoreference=${photoReference}&key=${process.env.PLACES_API_KEY}`;
   return url;
-};
+}
 
 async function callGPT(prompt) {
   try {
@@ -83,7 +83,6 @@ export default async function getResultJson(results, location, radius) {
   });
   const prompt = `select the 10 best options from the following places and return their names as a simple array, just that as output please ${JSON.stringify(placesTrunc)} you should select the places according to the following responses of this survey ${JSON.stringify(results)} as we will later create an itenary for a night out based on these places. please return raw text with no code block ticks`;
   const options = await callGPT(prompt);
-  console.log(options);
   const optionsArray = JSON.parse(options.match(/\[(.*?)\]/s)[0]);
   const optionsJson = places.filter((place) => { return optionsArray.includes(place.name); }).map((place) => {
     return {
@@ -94,6 +93,7 @@ export default async function getResultJson(results, location, radius) {
       rating: place.rating,
       types: place.types,
       user_ratings_total: place.user_ratings_total,
+      geometry: place.geometry,
     };
   });
 
@@ -107,21 +107,20 @@ export default async function getResultJson(results, location, radius) {
     optionsJson[i].reviews = reviewTexts;
   }
 
-  const finalPrompt = `select an itenerary with at most one place per type (e.g. bar, restaurant, club) for a night out from the following places ${JSON.stringify(optionsJson)} based on the following responses of this survey ${JSON.stringify(results)} please return just the json of the places in the order in which they should be visited you should only include as many places as would make sense to go to on one night out based on the survey results. please **just** return a raw json with no code block ticks and no additional text so I can parse it easily.`;
+  const finalPrompt = `select an itenerary with at most one place per type (e.g. bar, restaurant, club) and max 3 places total for a night out from the following places ${JSON.stringify(optionsJson)} based on the following responses of this survey ${JSON.stringify(results)} please return just the json of the places in the order in which they should be visited you should only include as many places as would make sense to go to on one night out based on the survey results. please **just** return a raw json with no code block ticks and no additional text so I can parse it easily.`;
   const finalRes = await callGPT(finalPrompt);
-  console.log(finalRes);
-  const finalResult = JSON.parse(finalRes).map((place) => {
-    return {
-      name: place.name,
-      photo: getPhotoUrl(place.photos[0].photo_reference),
-      place_id: place.place_id,
-      rating: place.rating,
-      price_level: place.price_level,
-      distance: getDistance(location.latitude, location.longitude, place.geometry.location.lat, place.geometry.location.lng),
-    };
-  });
-  console.log(finalResult);
+  const parsedRes = JSON.parse(finalRes);
+  const result = [];
+  for (let i = 0; i < parsedRes.length; i += 1) {
+    result.push({
+      name: parsedRes[i].name,
+      photo: getPhotoUrl(parsedRes[i].photos[0].photo_reference),
+      place_id: parsedRes[i].place_id,
+      rating: parsedRes[i].rating,
+      price_level: parsedRes[i].price_level,
+      distance: getDistance(location.latitude, location.longitude, parsedRes[i].geometry.location.lat, parsedRes[i].geometry.location.lng),
+    });
+  }
 
-
-  return finalResult;
+  return result;
 }
