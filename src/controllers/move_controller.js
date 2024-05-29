@@ -67,8 +67,8 @@ export async function getResults(moveId) {
       results.push(`${backendPrompt}: ${answer}`);
     }
   }
-  console.log(results, location);
   const res = await getResultJson(results, location, radius);
+  console.log(res);
   return res;
 }
 
