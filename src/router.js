@@ -35,6 +35,12 @@ const handleSubmitResponse = async (req, res) => {
 const handleJoinMove = async (req, res) => {
   try {
     const result = await Moves.joinMove(req.body.code, req.body.user);
+
+    const result2 = await UserController.addMove(req.body.number, result.id);
+    console.log(result2);
+
+    console.log(req.body.number);
+    console.log(result);
     res.json(result);
   } catch (error) {
     res.status(404).json({ error });
