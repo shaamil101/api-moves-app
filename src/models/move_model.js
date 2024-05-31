@@ -22,6 +22,14 @@ const MoveSchema = new Schema({
   radius: Number,
   status: { type: String, enum: MoveStates, default: MoveStates.IN_PROGRESS },
   moveName: String,
+  results: [{
+    name: String,
+    photo: String,
+    place_id: String,
+    rating: Number,
+    price_level: Number,
+    distance: Number,
+  }],
 }, {
   toObject: { virtuals: true },
   toJSON: { virtuals: true },
