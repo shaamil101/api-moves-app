@@ -12,8 +12,9 @@ const groq = new Groq({
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-const maxRequests = 1;
+const maxRequests = 2;
 let requestCounter = 0;
+console.log('loaded main_algo.js');
 
 function fetchAllPlaces(url, places = []) {
   requestCounter += 1;
@@ -132,21 +133,23 @@ export default async function getResultJson(results, location, radius) {
   });
   // const prompt = `select the 10 best options from the following places and return their names as a simple array, just that as output please ${JSON.stringify(placesTrunc)} you should select the places according to the following responses of this survey ${JSON.stringify(results)} as we will later create an itenary for a night out based on these places. please return raw text with no code block ticks`;
 
-const prompt = `you are an AI that generates an array of strings for recommended places based on user preferences. You will be given two JSON objects: one containing details about places from the Google Places API, and another containing user responses to a survey about their preferences.
-Places:
-${JSON.stringify(placesTrunc)}
-Survey responses:
-${JSON.stringify(results)}
+  const prompt = `You are an AI that only generates an array of strings for recommended places based on user preferences. You will be given two JSON objects: one containing details about places from the Google Places API, and another containing user responses to a survey about their preferences.
 
-Using these JSON objects, generate a JSON of ten unique places where each string is a place name that matches the user's preferences. The JSON should include only those 10 unique places that meet the criteria specified in the survey responses.
+  Places:
+  ${JSON.stringify(placesTrunc)}
+  
+  Survey responses:
+  ${JSON.stringify(results)}
+  
+  Using these JSON objects, generate an array of ten unique places where each string is a place name that matches the user's preferences. The array should include only those 10 unique places that meet the criteria specified in the survey responses.
+  
+  Using the reviews and details provided, only generate an array in this format ["Place 1 Name", "Place 2 Name", ..., "Place 10 Name"] that includes the names of the two places that best match the user's preferences.:`;
 
-Generate the array of places.place.name in the following format:
-["Place 1", "Place 2", "Place 3", "Place 4", "Place 5", "Place 6", "Place 7", "Place 8", "Place 9", "Place 10"]`;
-console.log('prompt:', prompt);
-  // const options = await callGPT(prompt);
   const options = await callGroq1(prompt);
-  console.log(options);
+  console.log('options:', options);
   const optionsArray = JSON.parse(options.match(/\[(.*?)\]/s)[0]);
+  console.log('optionsArray: ', JSON.stringify(optionsArray));
+
   const optionsJson = places.filter((place) => { return optionsArray.includes(place.name); }).map((place) => {
     return {
       name: place.name,
@@ -170,44 +173,40 @@ console.log('prompt:', prompt);
     optionsJson[i].reviews = reviewTexts;
   }
 
-  const finalPrompt = `You are an AI that creates a final itinerary of places based on user preferences and Google Places reviews. You will be given two pieces of information: an array of 10 recommended places and their corresponding details, including reviews from the Google Places API.
+const finalPrompt = `You are an AI that generates an array of strings based on user preferences and reviews. You will be given two pieces of information: an array of 10 recommended places and their corresponding details.
 
-  The JSON structure for the recommended places with place details and reviews is as follows:
-  ${JSON.stringify(optionsJson)}
-  Using the reviews and details provided, give me an itinerary for the night of the best places' names with at most one place per type (e.g. bar, restaurant, club) for the final itinerary.
-  
-  Generate the array of places.place.name in the following format with 3 places or less:
-  ["Place 1", "Place 2", "Place 3"]`;
+Place details and reviews:
+${JSON.stringify(optionsJson)}
 
-  // const finalRes = await callGPT(finalPrompt);
-  const finalRes = await callGroq2(finalPrompt);
-  console.log(finalRes);
+Using the reviews and details provided, only generate an array in this format ["Place 1 Name", "Place 2 Name"] that includes the names of the two places that best match the user's preferences.:`;
 
-  const resultsArray = JSON.parse(finalRes.match(/\[(.*?)\]/s)[0]);
-  const finalResult = places.filter((place) => { return resultsArray.includes(place.name); }).map((place) => {
-    return {
-      name: place.name,
-      photos: place.photos,
-      place_id: place.place_id,
-      price_level: place.price_level,
-      rating: place.rating,
-      types: place.types,
-      user_ratings_total: place.user_ratings_total,
-      geometry: place.geometry,
-    };
-  });
-  
-  const result = [];
-  for (let i = 0; i < finalResult.length; i += 1) {
-    result.push({
-      name: finalResult[i].name,
-      photo: getPhotoUrl(finalResult[i].photos[0].photo_reference),
-      place_id: finalResult[i].place_id,
-      rating: finalResult[i].rating,
-      price_level: finalResult[i].price_level,
-      distance: getDistance(location.latitude, location.longitude, finalResult[i].geometry.location.lat, finalResult[i].geometry.location.lng),
-    });
-  }
+// const finalResult = await getResultsArray();
+const finalRes = await callGroq2(finalPrompt);
+console.log('finalRes:', finalRes);
+const resultsArray = JSON.parse(finalRes.match(/\[(.*?)\]/s)[0]);
+console.log('resultsArray:', JSON.stringify(resultsArray));
+const finalResult = places.filter((place) => { return resultsArray.includes(place.name); }).map((place) => {
+  return {
+    name: place.name,
+    photos: place.photos,
+    place_id: place.place_id,
+    price_level: place.price_level,
+    rating: place.rating,
+    types: place.types,
+    user_ratings_total: place.user_ratings_total,
+    geometry: place.geometry,
+  };
+});
+// const finalResult = await getResultsArray();
+const result = finalResult.map(place => ({
+  name: place.name,
+  photo: getPhotoUrl(place.photos?.[0]?.photo_reference),
+  place_id: place.place_id,
+  rating: place.rating,
+  price_level: place.price_level,
+  distance: getDistance(location.latitude, location.longitude, place.geometry.location.lat, place.geometry.location.lng),
+}));
 
-  return result;
+console.log('results', JSON.stringify(result));
+return result;
 }
