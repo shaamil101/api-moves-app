@@ -58,7 +58,7 @@ async function callGroq(prompt) {
     const response = await groq.chat.completions.create({
       messages: [
         {
-          "role": "system",
+          "role": "user",
           "content": prompt 
         }
       ],
@@ -120,7 +120,7 @@ export default async function getResultJson(results, location, radius) {
   
   Using these JSON objects, generate an array of ten unique places where each string is a place name that matches the user's preferences. The array should include only those 10 unique places that meet the criteria specified in the survey responses.
   
-  Using the reviews and details provided, only generate an array in this format ["Place 1 Name", "Place 2 Name", ..., "Place 10 Name"] that includes the names of the two places that best match the user's preferences.:`;
+  Using the reviews and details provided, only generate an array in this format ["Place 1 Name", "Place 2 Name", ..., "Place 10 Name"] that includes the names of the two places that best match the user's preferences. I just need the array so I can save it to a variable.`;
 
   const options = await callGroq(prompt);
   console.log('options:', options);
@@ -155,7 +155,7 @@ const finalPrompt = `You are an AI that generates an array of strings based on u
 Place details and reviews:
 ${JSON.stringify(optionsJson)}
 
-Using the reviews and details provided, only generate an array in this format ["Place 1 Name", "Place 2 Name"] that includes the names of the two places that best match the user's preferences.:`;
+Using the reviews and details provided, only generate an array that includes the names of the two places that best match the user's preferences. I just need the array with the places in quotations with one set of brackets so I can save it to a variable. e.g. perfect output: ["Place 1 Name", "Place 2 Name"]`;
 
 const finalRes = await callGroq(finalPrompt);
 console.log('finalRes:', finalRes);
