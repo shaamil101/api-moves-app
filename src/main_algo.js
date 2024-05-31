@@ -53,30 +53,7 @@ async function callGPT(prompt) {
     return `Error calling GPT-4 API:${error}`;
   }
 }
-
-async function callGroq1(prompt) {
-  try {
-    const response = await groq.chat.completions.create({
-      messages: [
-        {
-          "role": "system",
-          "content": prompt 
-        }
-      ],
-      model: 'llama3-8b-8192',
-      "temperature": 1,
-      "top_p": 1,
-      "stream": false,
-      "seed": 0,
-      model: 'llama3-8b-8192',
-    });
-
-    return response.choices[0].message.content;
-  } catch (error) {
-    return `Error calling Groq API:${error}`;
-  }
-}
-async function callGroq2(prompt) {
+async function callGroq(prompt) {
   try {
     const response = await groq.chat.completions.create({
       messages: [
@@ -145,7 +122,7 @@ export default async function getResultJson(results, location, radius) {
   
   Using the reviews and details provided, only generate an array in this format ["Place 1 Name", "Place 2 Name", ..., "Place 10 Name"] that includes the names of the two places that best match the user's preferences.:`;
 
-  const options = await callGroq1(prompt);
+  const options = await callGroq(prompt);
   console.log('options:', options);
   const optionsArray = JSON.parse(options.match(/\[(.*?)\]/s)[0]);
   console.log('optionsArray: ', JSON.stringify(optionsArray));
@@ -180,8 +157,7 @@ ${JSON.stringify(optionsJson)}
 
 Using the reviews and details provided, only generate an array in this format ["Place 1 Name", "Place 2 Name"] that includes the names of the two places that best match the user's preferences.:`;
 
-// const finalResult = await getResultsArray();
-const finalRes = await callGroq2(finalPrompt);
+const finalRes = await callGroq(finalPrompt);
 console.log('finalRes:', finalRes);
 const resultsArray = JSON.parse(finalRes.match(/\[(.*?)\]/s)[0]);
 console.log('resultsArray:', JSON.stringify(resultsArray));
@@ -197,7 +173,7 @@ const finalResult = places.filter((place) => { return resultsArray.includes(plac
     geometry: place.geometry,
   };
 });
-// const finalResult = await getResultsArray();
+
 const result = finalResult.map(place => ({
   name: place.name,
   photo: getPhotoUrl(place.photos?.[0]?.photo_reference),
