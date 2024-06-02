@@ -83,6 +83,15 @@ const handleGetResults = async (req, res) => {
   }
 };
 
+const handleCreateResults = async (req, res) => {
+  try {
+    const result = await Moves.createResults(req.body.params.moveId);
+    res.json(result);
+  } catch (error) {
+    res.status(404).json({ error });
+  }
+};
+
 const handleGetUserInfo = async (req, res) => {
   try {
     const result = await UserController.getUserInfo(req.query.number);
@@ -96,7 +105,8 @@ router.route('/users')
   .get(handleGetUserInfo);
 
 router.route('/results')
-  .get(handleGetResults);
+  .get(handleGetResults)
+  .post(handleCreateResults);
 
 router.route('/question')
   .get(handleGetQuestion)
