@@ -85,7 +85,7 @@ const handleGetResults = async (req, res) => {
 
 const handleCreateResults = async (req, res) => {
   try {
-    const result = await Moves.createResults(req.query.moveId);
+    const result = await Moves.createResults(req.body.params.moveId);
     res.json(result);
   } catch (error) {
     res.status(404).json({ error });

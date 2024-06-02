@@ -56,6 +56,7 @@ export async function createMove(moveInitInfo) {
 }
 
 export async function createResults(moveId) {
+  console.log(moveId);
   const move = await Move.findById(moveId).lean();
 
   if (move.results && move.results.length > 0) {
@@ -76,7 +77,6 @@ export async function createResults(moveId) {
   const res = await getResultJson(results, location, radius);
   console.log(res);
   await Move.findByIdAndUpdate(moveId, { results: res });
-
   return res;
 }
 
