@@ -56,7 +56,8 @@ export async function createMove(moveInitInfo) {
   return { joinCode, moveId: move._id };
 }
 
-export async function getResults(moveId) {
+export async function createResults(moveId) {
+  console.log(moveId);
   const move = await Move.findById(moveId).lean();
 
   if (move.results && move.results.length > 0) {
@@ -79,6 +80,11 @@ export async function getResults(moveId) {
   await Move.findByIdAndUpdate(moveId, { results: res });
 
   return res;
+}
+
+export async function getResults(moveId) {
+  const move = await Move.findById(moveId).lean();
+  return move.results || [];
 }
 
 export async function joinMove(joinCode, user) {
