@@ -57,6 +57,11 @@ export async function createMove(moveInitInfo) {
 
 export async function getResults(moveId) {
   const move = await Move.findById(moveId).lean();
+
+  if (move.results && move.results.length > 0) {
+    return move.results;
+  }
+
   const submissions = await Submission.find({ moveId }).lean();
   const { location, radius } = move;
   const results = [];
@@ -67,8 +72,11 @@ export async function getResults(moveId) {
       results.push(`${backendPrompt}: ${answer}`);
     }
   }
+  
   const res = await getResultJson(results, location, radius);
   console.log(res);
+  await Move.findByIdAndUpdate(moveId, { results: res });
+  
   return res;
 }
 
