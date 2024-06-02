@@ -12,7 +12,7 @@ const groq = new Groq({
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-const maxRequests = 2;
+const maxRequests = 4;
 let requestCounter = 0;
 console.log('loaded main_algo.js');
 
@@ -120,7 +120,7 @@ export default async function getResultJson(results, location, radius) {
   
   Using these JSON objects, generate an array of ten unique places where each string is a place name that matches the user's preferences. The array should include only those 10 unique places that meet the criteria specified in the survey responses.
   
-  Using the reviews and details provided, only generate an array in this format ["Place 1 Name", "Place 2 Name", ..., "Place 10 Name"] that includes the names of the two places that best match the user's preferences. I just need the array so I can save it to a variable.`;
+  Using the reviews and details provided, only generate an array in this format ["Place 1 Name", "Place 2 Name", ..., "Place 10 Name"] that includes the names of the ten places that best match the user's preferences. I just need the array so I can save it to a variable.`;
 
   const options = await callGroq(prompt);
   console.log('options:', options);
