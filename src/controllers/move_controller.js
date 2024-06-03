@@ -119,10 +119,8 @@ export async function changeStatus(moveId, userId, status) {
 
   if (status in MoveStates) {
     move.status = status;
-  } else if (userId !== move.creator) {
-    throw new Error('Only the creator can change the status of the game');
   } else {
-    throw new Error(`Invalid status. Must be ${MoveStates.CANCELLED}, ${MoveStates.IN_PROGRESS} or ${MoveStates.FINISHED}`);
+    throw new Error(`Invalid status. Must be ${MoveStates.CANCELED}, ${MoveStates.IN_PROGRESS} or ${MoveStates.FINISHED}`);
   }
 
   const res = await move.save();
