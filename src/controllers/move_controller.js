@@ -40,6 +40,8 @@ export async function createMove(moveInitInfo) {
 
     return joinCode;
   }
+  const joinCode = await generateUniqueJoinCode();
+  newMove.code = joinCode;
 
   const move = await newMove.save();
 
@@ -48,7 +50,6 @@ export async function createMove(moveInitInfo) {
   sub.user = moveInitInfo.creator;
   sub.moveId = move._id;
   await sub.save();
-  const joinCode = await generateUniqueJoinCode();
 
   await createJoinCode({ joinCode, moveId: move._id });
 
@@ -77,6 +78,7 @@ export async function createResults(moveId) {
   const res = await getResultJson(results, location, radius);
   console.log(res);
   await Move.findByIdAndUpdate(moveId, { results: res });
+
   return res;
 }
 
@@ -134,6 +136,7 @@ export async function getState(moveId, user) {
 
   const state = {
     id: moveId,
+    code: move.code,
     status: move.status,
     users: move.users,
     yourName: user,
