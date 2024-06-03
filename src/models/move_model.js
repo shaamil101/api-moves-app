@@ -31,6 +31,11 @@ const MoveSchema = new Schema({
     price_level: Number,
     distance: Number,
   }],
+  userMap: {
+    type: Schema.Types.Mixed,
+    default: {},
+  },
+  completed: [String],
 }, {
   toObject: { virtuals: true },
   toJSON: { virtuals: true },

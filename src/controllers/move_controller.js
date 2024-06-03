@@ -27,6 +27,13 @@ export async function createMove(moveInitInfo) {
   newMove.radius = moveInitInfo.radius;
   newMove.users = [moveInitInfo.creator];
   newMove.moveName = moveInitInfo.moveName;
+  // console.log('WORKING BEFORE MAP');
+  // newMove.userMap = {};
+  // console.log('Number type: ', typeof moveInitInfo.creatorNumber, moveInitInfo.creatorNumber);
+  // console.log('Creator type: ', typeof moveInitInfo.creator, moveInitInfo.creator);
+  // newMove.userMap.set(moveInitInfo.creatorNumber, moveInitInfo.creator);
+  newMove.userMap[moveInitInfo.creatorNumber] = moveInitInfo.creator;
+  // console.log('WORKING AFTER MAP');
 
   async function generateUniqueJoinCode() {
     let joinCode;
@@ -53,7 +60,7 @@ export async function createMove(moveInitInfo) {
 
   await createJoinCode({ joinCode, moveId: move._id });
 
-  return { joinCode, moveId: move._id };
+  return { joinCode, moveId: move._id, move };
 }
 
 export async function createResults(moveId) {
@@ -87,7 +94,7 @@ export async function getResults(moveId) {
   return move.results || [];
 }
 
-export async function joinMove(joinCode, user) {
+export async function joinMove(joinCode, user, userNumber) {
   const moveId = await joinMoveByCode(joinCode);
   const move = await Move.findById(moveId);
 
@@ -111,6 +118,9 @@ export async function joinMove(joinCode, user) {
 
   // username is free; add user to room
   move.users.push(userName);
+
+  move.userMap[userNumber] = userName;
+
   return move.save();
 }
 
