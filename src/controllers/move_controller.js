@@ -138,6 +138,20 @@ export async function changeStatus(moveId, userId, status) {
   return res;
 }
 
+export async function addCompletedUser(moveId, userNumber) {
+  const move = await Move.findById(moveId);
+
+  if (move) {
+    move.completed.push(userNumber);
+  } else {
+    throw new Error('Invalid move.');
+  }
+
+  const res = await move.save();
+
+  return res;
+}
+
 // returns the main state with status, users, username, and move name
 export async function getState(moveId, user) {
   const move = await Move.findById(moveId);
@@ -151,6 +165,8 @@ export async function getState(moveId, user) {
     creator: move.creator,
     creatorNumber: move.creatorNumber,
     moveName: move.moveName,
+    userMap: move.userMap,
+    completed: move.completed,
   };
 
   return state;

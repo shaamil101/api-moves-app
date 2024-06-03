@@ -74,6 +74,15 @@ const handleChangeStatus = async (req, res) => {
   }
 };
 
+const handleAddCompletedUser = async (req, res) => {
+  try {
+    const result = await Moves.addCompletedUser(req.body.moveId, req.body.number);
+    res.json(result);
+  } catch (error) {
+    res.status(404).json({ error });
+  }
+};
+
 const handleGetResults = async (req, res) => {
   try {
     const result = await Moves.getResults(req.query.moveId);
@@ -117,6 +126,9 @@ router.route('/create')
 
 router.route('/join')
   .post(handleJoinMove);
+
+router.route('/join/completed')
+  .post(handleAddCompletedUser);
 
 router.route('/move/status')
   .get(handleGetMoveState)
