@@ -98,6 +98,10 @@ export async function joinMove(joinCode, user, userNumber) {
   const moveId = await joinMoveByCode(joinCode);
   const move = await Move.findById(moveId);
 
+  if (move.userMap[userNumber]) {
+    throw new Error(`User with phone number ${userNumber} is already in the move.`);
+  }
+
   const sub = new Submission();
   sub.questionId = 1;
   sub.user = user;
