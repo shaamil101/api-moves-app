@@ -27,6 +27,13 @@ export async function createMove(moveInitInfo) {
   newMove.radius = moveInitInfo.radius;
   newMove.users = [moveInitInfo.creator];
   newMove.moveName = moveInitInfo.moveName;
+  // console.log('WORKING BEFORE MAP');
+  // newMove.userMap = {};
+  // console.log('Number type: ', typeof moveInitInfo.creatorNumber, moveInitInfo.creatorNumber);
+  // console.log('Creator type: ', typeof moveInitInfo.creator, moveInitInfo.creator);
+  // newMove.userMap.set(moveInitInfo.creatorNumber, moveInitInfo.creator);
+  newMove.userMap[moveInitInfo.creatorNumber] = moveInitInfo.creator;
+  // console.log('WORKING AFTER MAP');
 
   async function generateUniqueJoinCode() {
     let joinCode;
@@ -53,7 +60,7 @@ export async function createMove(moveInitInfo) {
 
   await createJoinCode({ joinCode, moveId: move._id });
 
-  return { joinCode, moveId: move._id };
+  return { joinCode, moveId: move._id, move };
 }
 
 export async function createResults(moveId) {
@@ -87,7 +94,7 @@ export async function getResults(moveId) {
   return move.results || [];
 }
 
-export async function joinMove(joinCode, user) {
+export async function joinMove(joinCode, user, userNumber) {
   const moveId = await joinMoveByCode(joinCode);
   const move = await Move.findById(moveId);
 
@@ -111,6 +118,9 @@ export async function joinMove(joinCode, user) {
 
   // username is free; add user to room
   move.users.push(userName);
+
+  move.userMap[userNumber] = userName;
+
   return move.save();
 }
 
@@ -119,10 +129,22 @@ export async function changeStatus(moveId, userId, status) {
 
   if (status in MoveStates) {
     move.status = status;
-  } else if (userId !== move.creator) {
-    throw new Error('Only the creator can change the status of the game');
   } else {
-    throw new Error(`Invalid status. Must be ${MoveStates.CANCELLED}, ${MoveStates.IN_PROGRESS} or ${MoveStates.FINISHED}`);
+    throw new Error(`Invalid status. Must be ${MoveStates.CANCELED}, ${MoveStates.IN_PROGRESS} or ${MoveStates.FINISHED}`);
+  }
+
+  const res = await move.save();
+
+  return res;
+}
+
+export async function addCompletedUser(moveId, userNumber) {
+  const move = await Move.findById(moveId);
+
+  if (move) {
+    move.completed.push(userNumber);
+  } else {
+    throw new Error('Invalid move.');
   }
 
   const res = await move.save();
@@ -143,6 +165,8 @@ export async function getState(moveId, user) {
     creator: move.creator,
     creatorNumber: move.creatorNumber,
     moveName: move.moveName,
+    userMap: move.userMap,
+    completed: move.completed,
   };
 
   return state;

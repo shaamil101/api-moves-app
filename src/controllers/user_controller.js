@@ -78,7 +78,7 @@ export const signout = async (req, res) => {
 
 // returns the main state with status, users, username, and move name
 export async function getUserInfo(userNumber) {
-  console.log('Number using to query for user info on backend:', userNumber);
+  // console.log('Number using to query for user info on backend:', userNumber);
   const user = await User.findOne({ number: userNumber });
   // const users = await User.find();
 
@@ -110,12 +110,12 @@ export async function getUserInfo(userNumber) {
 export async function addMove(userPhoneNumber, moveId) {
   const user = await User.findOne({ number: userPhoneNumber });
 
-  console.log('User located: ', user);
+  // console.log('User located: ', user);
 
   // Add id to map of move Ids
   user.movesList.push(moveId);
 
-  console.log('Updated local user: ', user);
+  // console.log('Updated local user: ', user);
 
   const res = await user.save();
 
